@@ -1,0 +1,19 @@
+en:
+  layouts:
+    header:
+      account_menu:
+        admin: "Administration"
+        profile: "Edit profile"
+        sign_out: "Sign out"
+      sign_in: "Login"
+      sign_up: "Sign up"
+    sidebar:
+      application:
+        home: "Home"
+      accounts:
+        profile: "Profile"
+        password: "Password"
+      admin:
+        header: "Administration"
+        home: "Home"
+        users: "Users"

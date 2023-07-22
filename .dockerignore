@@ -8,15 +8,17 @@
 
 # Ignore all default key files.
 /config/master.key
-/config/credentials/*.key
+/config/credentials.yml.enc
+/config/credentials/*
+!/config/credentials/.keep
 
 # Ignore all environment files.
 /.env*
 !/.env.example
 
+/config/settings/*
+!/config/settings/.keep
 /config/settings.local.yml
-/config/settings/*.local.yml
-/config/environments/*.local.yml
 
 # Ignore all logfiles and tempfiles.
 /log/*

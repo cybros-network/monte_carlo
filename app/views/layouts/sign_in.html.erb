@@ -1,0 +1,12 @@
+<%- content_for(:html_class, "h-100") %>
+<%- content_for(:body_class, "d-flex align-items-center py-4") %>
+<%- content_for :content do %>
+  <main class="w-100 m-auto">
+    <div class="container py-5">
+      <%= render "layouts/sign_in/notice" %>
+      <%= yield %>
+    </div>
+  </main>
+<% end -%>
+
+<%= render template: "layouts/base" %>

@@ -1,0 +1,8 @@
+zh-CN:
+  users:
+    omniauth_callbacks:
+      connection_occupied: "%{kind} connection already connected to another user."
+      connection_updated: "Update %{kind} connection successful."
+      connection_saved: "Your %{kind} account was connected."
+      connection_fail_to_save: "Something went wrong."
+      unexpected_failure: "Something went wrong."

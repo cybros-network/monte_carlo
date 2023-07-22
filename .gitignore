@@ -35,13 +35,16 @@
 /config/mailer.yml
 /config/storage.yml
 
+/config/settings/*
+!/config/settings/.keep
 /config/settings.local.yml
-/config/settings/*.local.yml
-/config/environments/*.local.yml
 
 # Ignore encryted credentials.
 /config/master.key
-/config/credentials.yml
 /config/credentials.yml.enc
+/config/credentials/*
+!/config/credentials/.keep
 
 /db/*.sqlite3
+
+/config/credentials/production.key

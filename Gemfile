@@ -45,6 +45,17 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 
+gem "meta-tags", "~> 2.18"
+gem "browser", "~> 5.3"
+gem "responders", "~> 3.1"
+gem "kaminari", "~> 1.2"
+
+gem "devise", github: "heartcombo/devise", branch: "main"
+gem "devise-i18n"
+gem "devise_invitable"
+gem "omniauth-rails_csrf_protection"
+gem "omniauth-siwe", github: "spruceid/omniauth-siwe", branch: "main"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri windows]

@@ -11,6 +11,25 @@
       </ul>
 
       <ul class="navbar-nav">
+        <% if user_signed_in? %>
+          <li class="nav-item dropdown">
+            <%= link_to "#", id: "navbar-dropdown", class: "nav-link dropdown-toggle", data: { target: "nav-account-dropdown", bs_toggle: "dropdown" }, aria: { haspopup: true, expanded: false } do %>
+              <%= current_user.display_name %>
+            <% end %>
+            <div id="nav-account-dropdown" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown">
+              <%= link_to t("layouts.header.account_menu.profile"), account_profile_path, class: "dropdown-item" %>
+              <div class="dropdown-divider"></div>
+              <%= link_to t("layouts.header.account_menu.sign_out"), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+            </div>
+          </li>
+        <% else %>
+
+          <li class="nav-item">
+            <%= button_to "SIWE", user_siwe_omniauth_authorize_path, class: 'nav-link', name: 'Sign in with SIWE', form: { "data-turbo": false } %>
+          </li>
+          <li class="nav-item"><%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Login", new_user_session_path, class: "nav-link" %></li>
+        <% end %>
       </ul>
     </div>
   </div>

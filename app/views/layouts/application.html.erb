@@ -1,19 +1,16 @@
-<!DOCTYPE html>
-<html class="h-100">
-<head>
-  <%= render "_shared/head" %>
-</head>
+<%- content_for(:html_class, "h-100") %>
+<%- content_for(:body_class, "d-flex flex-column h-100") %>
+<%- content_for :content do %>
+  <main class="flex-shrink-0">
+    <%= render "_shared/navbar" %>
+    <%= render "_shared/notices" %>
 
-<body class="d-flex flex-column h-100">
-<main class="flex-shrink-0">
-  <%= render "_shared/navbar" %>
-  <%= render "_shared/notices" %>
+    <div class="container mt-4 mx-auto">
+      <%= yield %>
+    </div>
+  </main>
 
-  <div class="container mt-4 mx-auto">
-    <%= yield %>
-  </div>
-</main>
+  <%= render "_shared/footer" %>
+<% end -%>
 
-<%= render "_shared/footer" %>
-</body>
-</html>
+<%= render template: "layouts/base" %>
