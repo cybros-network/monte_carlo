@@ -34,8 +34,6 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
 # [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
 # [https://github.com/rails/cssbundling-rails]
