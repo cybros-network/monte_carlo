@@ -3,8 +3,23 @@
 <%- content_for :content do %>
   <main class="w-100 m-auto">
     <div class="container py-5">
+      <h1 class="text-center mx-auto">
+        <%= link_to t("brand"), root_path, class: "text-decoration-none" %>
+      </h1>
+
       <%= render "layouts/sign_in/notice" %>
+
       <%= yield %>
+
+      <footer class="my-5 pt-5 text-body-secondary text-center text-small">
+        <p class="mb-1">
+          &copy; <%= Date.today.year %> <%= t("company") %>
+        </p>
+        <ul class="list-inline">
+          <li class="list-inline-item"><%= link_to "Privacy", privacy_path %></li>
+          <li class="list-inline-item"><%= link_to "Terms", terms_path %></li>
+        </ul>
+      </footer>
     </div>
   </main>
 <% end -%>

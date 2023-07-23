@@ -4,10 +4,8 @@ class User < ApplicationRecord
   include DeviseFailsafe
 
   # Include default devise modules. Others available are:
-  # :confirmable, :recoverable, :timeoutable
-  devise :database_authenticatable,
-         :registerable, :lockable, :invitable,
-         :trackable, :validatable,
+  # :database_authenticatable, :registerable, :confirmable, :recoverable, :invitable, :timeoutable
+  devise :rememberable, :lockable, :trackable, :validatable,
          :omniauthable, omniauth_providers: %i[siwe]
 
   scope :active, -> { where(locked_at: nil) }
@@ -25,6 +23,10 @@ class User < ApplicationRecord
   protected
     def email_required?
       false
+    end
+
+    def confirmation_required?
+      email.present? && !confirmed?
     end
 
     def name_required?

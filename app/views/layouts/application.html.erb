@@ -2,11 +2,18 @@
 <%- content_for(:body_class, "d-flex flex-column h-100") %>
 <%- content_for :content do %>
   <main class="flex-shrink-0">
-    <%= render "_shared/navbar" %>
-    <%= render "_shared/notices" %>
+    <%= render "layouts/application/header" %>
 
-    <div class="container mt-4 mx-auto">
-      <%= yield %>
+    <div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
+      <%= render "layouts/application/sidebar" %>
+
+      <main class="bd-main order-1">
+        <%= render "_shared/notices" %>
+
+        <div class="bd-content ps-lg-2">
+          <%= yield %>
+        </div>
+      </main>
     </div>
   </main>
 

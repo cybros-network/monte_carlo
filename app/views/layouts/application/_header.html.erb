@@ -1,0 +1,68 @@
+<header class="navbar navbar-expand-lg sticky-top">
+  <nav class="container-xxl bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main navigation">
+    <% if has_sidebar? %>
+      <div class="navbar-toggle">
+        <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
+          <i class="bi bi-list"></i>
+          <span class="d-none fs-6 pe-1">Browse</span>
+        </button>
+      </div>
+    <% else %>
+      <div class="d-lg-none" style="width: 4.25rem;"></div>
+    <% end %>
+
+    <%= link_to root_path, class: "navbar-brand", "aria-label": t("brand") do %>
+      <%= t("brand") %>
+    <% end %>
+
+    <div class="d-flex">
+      <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-label="Toggle navigation">
+        <i class="bi bi-three-dots" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="offcanvas-lg offcanvas-end flex-grow-1" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel" data-bs-scroll="true">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="bdNavbarOffcanvasLabel">
+          <%= t("brand") %>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar">
+        </button>
+      </div>
+
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap">
+          <%= yield :header_nav_items %>
+        </ul>
+
+        <hr class="d-lg-none">
+
+        <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+          <% if user_signed_in? %>
+            <li class="nav-item dropdown">
+              <%= link_to "#", id: "navbar-dropdown", class: "nav-link dropdown-toggle", data: { target: "nav-account-dropdown", bs_toggle: "dropdown" }, aria: { haspopup: true, expanded: false } do %>
+                <%= current_user.display_name %>
+              <% end %>
+              <div id="nav-account-dropdown" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown">
+                <%= link_to t("layouts.header.account_menu.profile"), account_profile_path, class: "dropdown-item" %>
+                <div class="dropdown-divider"></div>
+                <%= link_to t("layouts.header.account_menu.sign_out"), user_sign_out_path, method: :delete, class: "dropdown-item" %>
+              </div>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= button_to "Sign in with Ethereum", user_siwe_omniauth_authorize_path, class: 'nav-link', name: 'Sign in with SIWE', form: { "data-turbo": false } %>
+            </li>
+            <%- if Devise.mappings[:user].registerable? %>
+              <li class="nav-item"><%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %></li>
+            <% end %>
+            <%- if Devise.mappings[:user].database_authenticatable? %>
+              <li class="nav-item"><%= link_to "Login", new_user_session_path, class: "nav-link" %></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

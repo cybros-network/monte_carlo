@@ -2,6 +2,7 @@
 
 module Accounts
   class PasswordsController < Accounts::ApplicationController
+    before_action :ensure_authenticatable!
     before_action :set_user
 
     # GET /account/password

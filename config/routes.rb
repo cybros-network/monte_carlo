@@ -28,6 +28,8 @@ Rails.application.routes.draw do
         get :edit, path: "accept", as: :accept
         get :destroy, path: "remove", as: :remove
       end
+
+      match "sign_out" => "sessions#destroy", via: %i[get delete], as: :sign_out
     end
   end
 
@@ -38,7 +40,8 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks"
   }
 
-  get "users", to: redirect("/users/sign_up")
+  get "sign_up", to: redirect("/users/sign_up")
+  get "sign_in", to: redirect("/users/sign_in")
 
   namespace :account, module: "accounts" do
     resource :password, only: %i[show update]

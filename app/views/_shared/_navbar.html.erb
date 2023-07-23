@@ -23,7 +23,6 @@
             </div>
           </li>
         <% else %>
-
           <li class="nav-item">
             <%= button_to "SIWE", user_siwe_omniauth_authorize_path, class: 'nav-link', name: 'Sign in with SIWE', form: { "data-turbo": false } %>
           </li>

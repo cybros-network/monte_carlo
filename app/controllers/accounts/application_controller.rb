@@ -10,5 +10,11 @@ module Accounts
         prepare_meta_tags title: t("accounts.#{controller_name}.show.title")
         @_sidebar_name = "accounts"
       end
+
+      def ensure_authenticatable!
+        unless Devise.mappings[:user].database_authenticatable?
+          redirect_back fallback_location: root_url
+        end
+      end
   end
 end

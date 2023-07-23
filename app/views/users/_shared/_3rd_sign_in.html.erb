@@ -1,0 +1,10 @@
+<div class="mx-4 px-4">
+  <div class="form-text text-center mb-3">
+    Sign in with 3rd services
+  </div>
+  <%= form_tag user_siwe_omniauth_authorize_path, "data-turbo": false, authenticity_token: true do %>
+    <div class="d-grid gap-2 mb-3">
+      <%= submit_tag "SIWE", class: "btn btn-outline-dark" %>
+    </div>
+  <% end %>
+</div>

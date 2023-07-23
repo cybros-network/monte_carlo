@@ -1,0 +1,20 @@
+<li class="links-group py-2">
+  <strong class="d-flex w-100 align-items-center fw-semibold py-2">
+    Account
+  </strong>
+
+  <ul class="nav nav-pills flex-column">
+    <li class="nav-item">
+      <%= nav_link_to account_profile_path, controller: "accounts/profiles", class: "nav-link" do %>
+        <%= t("layouts.sidebar.accounts.profile") %>
+      <% end %>
+    </li>
+    <% if Devise.mappings[:user].database_authenticatable? %>
+      <li class="nav-item">
+        <%= nav_link_to account_password_path, controller: "accounts/passwords", class: "nav-link" do %>
+          <%= t("layouts.sidebar.accounts.password") %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</li>
