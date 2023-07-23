@@ -71,6 +71,8 @@ group :development do
 
   gem "error_highlight", ">= 0.4.0", platforms: %i[ruby]
 
+  gem "letter_opener"
+
   gem "brakeman", require: false
   gem "rubocop", require: false
   gem "rubocop-rails", require: false

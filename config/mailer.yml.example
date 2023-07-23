@@ -7,11 +7,12 @@ default: &default
 
 development:
   <<: *default
-  smtp_settings:
-    # see https://github.com/sj26/mailcatcher
-    address: 127.0.0.1
-    port: 1025
-    domain: localhost
+  delivery_method: :letter_opener
+#  smtp_settings:
+#    # see https://github.com/sj26/mailcatcher
+#    address: 127.0.0.1
+#    port: 1025
+#    domain: localhost
   default_options:
     reply_to: admin@cybros.local
     from: admin@cybros.local
