@@ -3,8 +3,9 @@ en:
     profiles:
       show:
         title: "Edit Profile"
-        submit: "Submit"
         updated: "Profile update successfully"
+        form:
+          submit: "Update"
         section:
           email:
             title: "Email"

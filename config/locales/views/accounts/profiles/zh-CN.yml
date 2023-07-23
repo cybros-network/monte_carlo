@@ -5,6 +5,8 @@ zh-CN:
         title: "编辑个人资料"
         submit: "提交"
         updated: "个人资料更新成功"
+        form:
+          submit: "更新"
         section:
           email:
             title: "邮箱"

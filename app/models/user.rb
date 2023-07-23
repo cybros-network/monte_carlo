@@ -5,7 +5,8 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :database_authenticatable, :registerable, :confirmable, :recoverable, :invitable, :timeoutable
-  devise :rememberable, :lockable, :trackable, :validatable,
+  devise :database_authenticatable, :registerable,
+         :rememberable, :lockable, :trackable, :validatable,
          :omniauthable, omniauth_providers: %i[siwe]
 
   scope :active, -> { where(locked_at: nil) }

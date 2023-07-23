@@ -332,15 +332,12 @@ Devise.setup do |config|
   # --data '{"redirect_uris": ["http://localhost:3000/users/auth/siwe/callback","http://127.0.0.1:3000/users/auth/siwe/callback","http://0.0.0.0:3000/users/auth/siwe/callback"]}'
   # {"client_id":"aac31de9-d434-4ff6-ada6-ab0ecdcd726f","client_secret":"wM1hWhgoUuVcpG0X","registration_access_token":"4ROycqtW3kn","registration_client_uri":"https://oidc.login.xyz/client/aac31de9-d434-4ff6-ada6-ab0ecdcd726f","redirect_uris":["http://localhost:3000/users/auth/siwe/callback","http://127.0.0.1:3000/users/auth/siwe/callback","http://0.0.0.0:3000/users/auth/siwe/callback"]}
   config.omniauth :siwe, issuer: "https://oidc.login.xyz/", client_options: {
-    scheme: "https",
-    host: "oidc.login.xyz",
-    port: 443,
     authorization_endpoint: "https://oidc.login.xyz/authorize",
     token_endpoint: "https://oidc.login.xyz/token",
     userinfo_endpoint: "https://oidc.login.xyz/userinfo",
     jwks_uri: "https://oidc.login.xyz/jwk",
-    identifier: "aac31de9-d434-4ff6-ada6-ab0ecdcd726f",
-    secret: "wM1hWhgoUuVcpG0X"
+    identifier: Rails.application.credentials.siwe_identifier, # "aac31de9-d434-4ff6-ada6-ab0ecdcd726f"
+    secret: Rails.application.credentials.siwe_secret # "wM1hWhgoUuVcpG0X"
   }
 
   # ==> Warden configuration
