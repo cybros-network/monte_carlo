@@ -88,7 +88,6 @@ module NavigationHelper
     else
       link_to name, options, html_options, &block
     end
-
   end
 
   def active_nav_item?(options)

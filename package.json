@@ -6,15 +6,15 @@
     "@hotwired/turbo-rails": "^7.3.0",
     "@popperjs/core": "^2.11.8",
     "autoprefixer": "^10.4.14",
-    "bootstrap": "^5.3.0",
+    "bootstrap": "^5.3.1",
     "bootstrap-icons": "^1.10.5",
     "chokidar": "^3.5.3",
-    "esbuild": "^0.18.15",
+    "esbuild": "^0.18.17",
     "esbuild-rails": "^1.0.7",
     "nodemon": "^3.0.1",
     "postcss": "^8.4.27",
     "postcss-cli": "^10.1.0",
-    "sass": "^1.64.0"
+    "sass": "^1.64.1"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets",
