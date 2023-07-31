@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_07_22_083819) do
+ActiveRecord::Schema[7.1].define(version: 2023_07_31_084721) do
+  create_table "glossaries", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_glossaries_on_user_id"
+  end
+
   create_table "identities", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "provider", null: false
@@ -57,5 +66,15 @@ ActiveRecord::Schema[7.1].define(version: 2023_07_22_083819) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  create_table "vocabularies", force: :cascade do |t|
+    t.string "text", null: false
+    t.integer "glossary_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["glossary_id"], name: "index_vocabularies_on_glossary_id"
+  end
+
+  add_foreign_key "glossaries", "users"
   add_foreign_key "identities", "users"
+  add_foreign_key "vocabularies", "glossaries"
 end

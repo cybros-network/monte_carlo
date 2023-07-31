@@ -19,3 +19,7 @@ zh-CN:
         header: "后台管理"
         home: "总览"
         users: "用户"
+      dashboard:
+        header: "Dashboard"
+        home: "总览"
+        glossaries: "词库管理"

@@ -1,0 +1,43 @@
+<div class="row align-items-center justify-content-between g-3 mb-3">
+  <div class="col-12 col-md-auto">
+    <h2 class="mb-0">Glossaries</h2>
+  </div>
+  <div class="col-12 col-md-auto d-flex">
+    <%= link_to new_dashboard_glossary_path, class: "btn btn-outline-primary px-3 px-sm-5 me-2" do %>
+      <span class="d-none d-sm-inline">
+        New
+      </span>
+    <% end %>
+  </div>
+</div>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+    <th scope="col">Description</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @glossaries.each do |glossary| %>
+    <tr>
+      <th scope="row">
+        <%= glossary.id %>
+      </th>
+      <td>
+        <%= glossary.name %>
+      </td>
+      <td>
+        <%= glossary.description.truncate(16) %>
+      </td>
+      <td>
+        <%= link_to "Show", dashboard_glossary_path(glossary) %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= paginate @glossaries %>

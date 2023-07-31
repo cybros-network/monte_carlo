@@ -1,0 +1,18 @@
+<li class="links-group py-2">
+  <strong class="d-flex w-100 align-items-center fw-semibold py-2">
+    <%= t("layouts.sidebar.dashboard.header") %>
+  </strong>
+
+  <ul class="nav nav-pills flex-column">
+    <li class="nav-item">
+      <%= nav_link_to dashboard_root_path, controller: "dashboard/home", class: "nav-link" do %>
+        <%= t("layouts.sidebar.dashboard.home") %>
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= nav_link_to dashboard_glossaries_path, paths: [{ controller: "dashboard/glossaries" }, { namespace: "dashboard/glossaries" }], class: "nav-link" do %>
+        <%= t("layouts.sidebar.dashboard.glossaries") %>
+      <% end %>
+    </li>
+  </ul>
+</li>

@@ -1,0 +1,39 @@
+<div class="row align-items-center justify-content-between g-3 mb-3">
+  <div class="col-12 col-md-auto">
+    <h2 class="mb-0"><%= @glossary.name %></h2>
+  </div>
+  <div class="col-12 col-md-auto d-flex">
+    <%= link_to edit_dashboard_glossary_path(@glossary), class: "btn btn-outline-primary px-3 px-sm-5 me-2" do %>
+      <span class="d-none d-sm-inline">
+        Edit
+      </span>
+    <% end %>
+
+    <div>
+      <button class="btn px-3 btn-outline-secondary" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="true" data-bs-reference="parent">
+        <i class="bi bi-three-dots"></i>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end" data-popper-placement="bottom-end">
+        <li>
+          <%= button_to "Delete", dashboard_glossary_path(@glossary), method: :delete, class: "dropdown-item text-danger" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<p class="lead">
+  <%= @glossary.description %>
+</p>
+
+<%= render "inline_form", glossary: @glossary, vocabulary: Vocabulary.new %>
+
+<div class="d-flex flex-row mb-3">
+  <% @vocabularies.each do |vocabulary| %>
+    <div class="pe-2 pt-2">
+      <%= button_to dashboard_glossary_vocabulary_path(@glossary, vocabulary), method: :delete, class: "btn btn-light" do %>
+        <%= vocabulary.text %> <i class="bi bi-trash"></i>
+      <% end %>
+    </div>
+  <% end %>
+</div>

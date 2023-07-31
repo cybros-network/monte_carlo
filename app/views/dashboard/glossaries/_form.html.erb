@@ -1,0 +1,17 @@
+<%- back_path ||= dashboard_glossaries_path -%>
+<%= form_with(model: [:dashboard, glossary], local: true) do |f| %>
+  <div class="mb-3">
+    <%= f.label :name %>
+    <%= f.text_field :name, autofocus: true, required: "required", class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :name, class: "invalid-feedback" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :description %>
+    <%= f.text_field :description, class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :description, class: "invalid-feedback" %>
+  </div>
+
+  <%= f.submit class: "btn btn-primary" %>
+  <%= link_to "Discard & back", back_path, class: "btn btn-link" %>
+<% end %>

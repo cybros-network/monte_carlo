@@ -11,9 +11,14 @@ en:
       application:
         home: "Home"
       accounts:
+        header: "Account"
         profile: "Profile"
         password: "Password"
       admin:
         header: "Administration"
         home: "Home"
         users: "Users"
+      dashboard:
+        header: "Dashboard"
+        home: "Home"
+        glossaries: "Glossaries"
