@@ -61,7 +61,7 @@ ActionView::Helpers::FormBuilder.class_eval do
   # TODO: collection_check_boxes, collection_radio_buttons
 
   private
-    def normalize_html_options(method, class_for_error: nil, ref_method: nil, **options)
+    def normalize_html_options(method, class_for_error: "is-invalid", ref_method: nil, **options)
       if @object&.errors&.any? && class_for_error.present?
         errors = @object.errors
         if errors.include?(method) || (ref_method.present? && errors.include?(ref_method.to_sym))
