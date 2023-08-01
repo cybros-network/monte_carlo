@@ -22,7 +22,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :prompting_tasks
+    resources :prompting_tasks do
+      member do
+        patch "submit"
+      end
+    end
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

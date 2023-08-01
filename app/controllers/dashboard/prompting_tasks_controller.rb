@@ -2,8 +2,9 @@
 
 module Dashboard
   class PromptingTasksController < Dashboard::ApplicationController
-    before_action :set_prompting_task, only: %i[show edit update destroy]
+    before_action :set_prompting_task, except: %i[index new create]
     before_action :ensure_owner!, except: %i[index new create]
+    before_action :frozen_after_submitted!, except: %i[index new create show]
 
     def index
       @prompting_tasks = PromptingTask.where(user: current_user).page(params[:page]).per(params[:per_page] || 50)
@@ -55,11 +56,23 @@ module Dashboard
       redirect_to dashboard_prompting_tasks_url, status: :see_other
     end
 
+    def submit
+      @prompting_task.submit!
+      redirect_to dashboard_prompting_task_url(@prompting_task), status: :see_other
+    end
+
     private
       def ensure_owner!
         if @prompting_task.user != current_user
           flash[:alert] = "You have no permission."
           redirect_back fallback_location: dashboard_prompting_tasks_url, status: :see_other
+        end
+      end
+
+      def frozen_after_submitted!
+        unless @prompting_task.pending?
+          flash[:alert] = "The task has frozen."
+          redirect_back fallback_location: dashboard_prompting_task_url(@prompting_task), status: :see_other
         end
       end
 
@@ -69,7 +82,7 @@ module Dashboard
 
       def prompting_task_params
         params.require(:prompting_task).permit(
-          :prompt,
+          :positive_prompt,
           :negative_prompt,
           :sd_model_name,
           :sampler_name,

@@ -4,6 +4,7 @@ class PromptingPlan < ApplicationRecord
   belongs_to :user
 
   has_many :prompt_elements, dependent: :delete_all
+  # accepts_nested_attributes_for :prompt_elements
 
   has_many :prompting_tasks, dependent: :nullify
 
@@ -199,7 +200,7 @@ class PromptingPlan < ApplicationRecord
       (b / v).round * v
     }
 
-    prompts = []
+    positive_prompts = []
     negative_prompts = []
     prompt_elements.includes(glossary: :vocabularies).sort_by(&:order).reverse_each do |elem|
       case elem
@@ -207,14 +208,14 @@ class PromptingPlan < ApplicationRecord
         if elem.negative?
           negative_prompts << elem.text
         else
-          prompts << elem.text
+          positive_prompts << elem.text
         end
       when GlossaryPromptElement
         elem.glossary.vocabularies.sample(elem.frequency).each do |vocabulary|
           if elem.negative?
             negative_prompts << vocabulary.text
           else
-            prompts << vocabulary.text
+            positive_prompts << vocabulary.text
           end
         end
       else
@@ -223,7 +224,7 @@ class PromptingPlan < ApplicationRecord
     end
 
     prompting_tasks.build(
-      prompt: prompts.join(","),
+      positive_prompt: positive_prompts.join(","),
       negative_prompt: negative_prompts.join(","),
       sd_model_name: sd_model_name,
       sampler_name: sampler_name,

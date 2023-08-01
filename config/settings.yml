@@ -2,3 +2,5 @@ seo_meta:
   name: Monte-Carlo.ai
   description: Generate images in Monte Carlo's way!
   keywords: ["Stable Diffusion", "AIGC", "NFT factory"]
+
+unique_track_id_base: 0

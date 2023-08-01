@@ -3,11 +3,18 @@
     <h2 class="mb-0">Task #<%= @prompting_task.id %></h2>
   </div>
   <div class="col-12 col-md-auto d-flex">
-    <%= link_to edit_dashboard_prompting_task_path(@prompting_task), class: "btn btn-outline-primary px-3 px-sm-5 me-2" do %>
-      <span class="d-none d-sm-inline">
-        Edit
-      </span>
-    <% end %>
+    <%- if @prompting_task.pending? %>
+      <%= button_to submit_dashboard_prompting_task_path(@prompting_task), method: :patch, class: "btn btn-primary px-3 px-sm-5 me-2" do %>
+        <span class="d-none d-sm-inline">
+          Run
+        </span>
+      <% end %>
+      <%= link_to edit_dashboard_prompting_task_path(@prompting_task), class: "btn btn-outline-primary px-3 px-sm-5 me-2" do %>
+        <span class="d-none d-sm-inline">
+          Edit
+        </span>
+      <% end %>
+    <% end -%>
 
     <div>
       <button class="btn px-3 btn-outline-secondary" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="true" data-bs-reference="parent">
@@ -24,10 +31,71 @@
 
 <dl class="row mb-3">
   <dt class="col-sm-3">
+    Status
+  </dt>
+  <dd class="col-sm-9">
+    <%= @prompting_task.status %>
+  </dd>
+
+  <%- unless @prompting_task.pending? %>
+    <dt class="col-sm-3">
+      Prompt
+    </dt>
+    <dd class="col-sm-9">
+      <%= @prompting_task.frozen_prompt %>
+    </dd>
+
+    <%- if @prompting_task.submitting_at.present? %>
+      <dt class="col-sm-3">
+        Submitting at
+      </dt>
+      <dd class="col-sm-9">
+        <%= time_tag @prompting_task.submitting_at %>
+      </dd>
+    <% end -%>
+    <%- if @prompting_task.submitted_at.present? %>
+      <dt class="col-sm-3">
+        Submitted at
+      </dt>
+      <dd class="col-sm-9">
+        <%= time_tag @prompting_task.submitted_at %>
+      </dd>
+    <% end -%>
+    <%- if @prompting_task.processing_at.present? %>
+      <dt class="col-sm-3">
+        Processing at
+      </dt>
+      <dd class="col-sm-9">
+        <%= time_tag @prompting_task.processing_at %>
+      </dd>
+    <% end -%>
+    <%- if @prompting_task.processed_at.present? %>
+      <dt class="col-sm-3">
+        Processed at
+      </dt>
+      <dd class="col-sm-9">
+        <%= time_tag @prompting_task.processed_at %>
+      </dd>
+    <% end -%>
+    <%- if @prompting_task.discarded_at.present? %>
+      <dt class="col-sm-3">
+        Discarded at
+      </dt>
+      <dd class="col-sm-9">
+        <%= time_tag @prompting_task.discarded_at %>
+      </dd>
+    <% end -%>
+  <% end -%>
+</dl>
+
+<hr />
+
+<dl class="row mb-3">
+  <dt class="col-sm-3">
     Prompt
   </dt>
   <dd class="col-sm-9">
-    <%= @prompting_task.prompt %>
+    <%= @prompting_task.positive_prompt %>
   </dd>
 
   <dt class="col-sm-3">

@@ -5,7 +5,7 @@ class CreatePromptingTasks < ActiveRecord::Migration[7.1]
 
       t.references :prompting_plan, null: true, foreign_key: true
 
-      t.text :prompt, null: false
+      t.text :positive_prompt, null: false
       t.text :negative_prompt
       t.string :sd_model_name, null: false
       t.string :sampler_name, null: false
@@ -20,11 +20,22 @@ class CreatePromptingTasks < ActiveRecord::Migration[7.1]
       t.integer :hires_fix_steps
       t.float :hires_fix_denoising
 
+      t.string :status, null: false
+
       t.integer :unique_track_id
-      t.text :submitted_prompt
+      t.text :frozen_prompt
+
+      t.text :transaction_id
+
+      t.string :result
+      t.text :raw_output
       t.text :generated_image_url
 
-      t.string :status, null: false
+      t.datetime :submitting_at
+      t.datetime :submitted_at
+      t.datetime :processing_at
+      t.datetime :processed_at
+      t.datetime :discarded_at
 
       t.timestamps
     end

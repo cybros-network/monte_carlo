@@ -72,7 +72,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
   create_table "prompting_tasks", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "prompting_plan_id"
-    t.text "prompt", null: false
+    t.text "positive_prompt", null: false
     t.text "negative_prompt"
     t.string "sd_model_name", null: false
     t.string "sampler_name", null: false
@@ -86,10 +86,18 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
     t.float "hires_fix_upscale"
     t.integer "hires_fix_steps"
     t.float "hires_fix_denoising"
-    t.integer "unique_track_id"
-    t.text "submitted_prompt"
-    t.text "generated_image_url"
     t.string "status", null: false
+    t.integer "unique_track_id"
+    t.text "frozen_prompt"
+    t.text "transaction_id"
+    t.string "result"
+    t.text "raw_output"
+    t.text "generated_image_url"
+    t.datetime "submitting_at"
+    t.datetime "submitted_at"
+    t.datetime "processing_at"
+    t.datetime "processed_at"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["prompting_plan_id"], name: "index_prompting_tasks_on_prompting_plan_id"
