@@ -19,5 +19,10 @@
         <%= t("layouts.sidebar.dashboard.prompting_plans") %>
       <% end %>
     </li>
+    <li class="nav-item">
+      <%= nav_link_to dashboard_prompting_tasks_path, controller: "dashboard/prompting_tasks", class: "nav-link" do %>
+        <%= t("layouts.sidebar.dashboard.prompting_tasks") %>
+      <% end %>
+    </li>
   </ul>
 </li>

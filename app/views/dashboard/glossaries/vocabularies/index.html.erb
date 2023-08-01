@@ -26,7 +26,7 @@
   <%= @glossary.description %>
 </p>
 
-<%= render "inline_form", glossary: @glossary, vocabulary: Vocabulary.new %>
+<%= render "inline_form", glossary: @glossary %>
 
 <div class="d-flex flex-row mb-3">
   <% @vocabularies.each do |vocabulary| %>

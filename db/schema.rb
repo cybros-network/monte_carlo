@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_07_31_222824) do
+ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
   create_table "glossaries", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -32,6 +32,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_07_31_222824) do
   create_table "prompt_elements", force: :cascade do |t|
     t.integer "prompting_plan_id", null: false
     t.boolean "negative", default: false, null: false
+    t.integer "order"
     t.string "text"
     t.integer "glossary_id"
     t.integer "frequency"
@@ -61,9 +62,38 @@ ActiveRecord::Schema[7.1].define(version: 2023_07_31_222824) do
     t.integer "hires_fix_max_steps"
     t.float "hires_fix_min_denoising"
     t.float "hires_fix_max_denoising"
+    t.integer "positive_prompt_elements_count", default: 0, null: false
+    t.integer "negative_prompt_elements_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_prompting_plans_on_user_id"
+  end
+
+  create_table "prompting_tasks", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "prompting_plan_id"
+    t.text "prompt", null: false
+    t.text "negative_prompt"
+    t.string "sd_model_name", null: false
+    t.string "sampler_name", null: false
+    t.integer "width", null: false
+    t.integer "height", null: false
+    t.integer "seed", null: false
+    t.integer "steps", null: false
+    t.float "cfg_scale", null: false
+    t.boolean "hires_fix", null: false
+    t.string "hires_fix_upscaler_name"
+    t.float "hires_fix_upscale"
+    t.integer "hires_fix_steps"
+    t.float "hires_fix_denoising"
+    t.integer "unique_track_id"
+    t.text "submitted_prompt"
+    t.text "generated_image_url"
+    t.string "status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prompting_plan_id"], name: "index_prompting_tasks_on_prompting_plan_id"
+    t.index ["user_id"], name: "index_prompting_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -114,5 +144,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_07_31_222824) do
   add_foreign_key "prompt_elements", "glossaries"
   add_foreign_key "prompt_elements", "prompting_plans"
   add_foreign_key "prompting_plans", "users"
+  add_foreign_key "prompting_tasks", "prompting_plans"
+  add_foreign_key "prompting_tasks", "users"
   add_foreign_key "vocabularies", "glossaries"
 end

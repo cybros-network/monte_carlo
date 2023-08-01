@@ -20,6 +20,18 @@ module Dashboard::Glossaries
       end
     end
 
+    def import
+      texts = params[:comma_separated_text].to_s.split(",").filter_map(&:strip)
+      # This skip uniqueness check
+      # @glossary.vocabularies.insert_all(
+      #   texts.map { |text| { text: text } }
+      # )
+      texts.each do |text|
+        @glossary.vocabularies.create text: text
+      end
+      redirect_to dashboard_glossary_vocabularies_url(@glossary)
+    end
+
     def destroy
       @vocabulary.destroy!
 

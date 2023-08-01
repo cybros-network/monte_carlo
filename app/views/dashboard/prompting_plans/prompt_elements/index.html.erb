@@ -3,12 +3,16 @@
     <h2 class="mb-0"><%= @prompting_plan.name %></h2>
   </div>
   <div class="col-12 col-md-auto d-flex">
+    <%= button_to dashboard_prompting_tasks_path(prompting_plan_id: @prompting_plan.id), class: "btn btn-primary px-3 px-sm-5 me-2" do %>
+      <span class="d-none d-sm-inline">
+        New task
+      </span>
+    <% end %>
     <%= link_to edit_dashboard_prompting_plan_path(@prompting_plan), class: "btn btn-outline-primary px-3 px-sm-5 me-2" do %>
       <span class="d-none d-sm-inline">
         Edit
       </span>
     <% end %>
-
     <div>
       <button class="btn px-3 btn-outline-secondary" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="true" data-bs-reference="parent">
         <i class="bi bi-three-dots"></i>

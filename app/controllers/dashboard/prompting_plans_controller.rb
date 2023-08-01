@@ -2,7 +2,7 @@
 
 module Dashboard
   class PromptingPlansController < Dashboard::ApplicationController
-    before_action :set_plan, only: %i[show edit update destroy]
+    before_action :set_prompting_plan, only: %i[show edit update destroy]
     before_action :ensure_owner!, except: %i[index new create]
 
     def index
@@ -21,7 +21,7 @@ module Dashboard
     end
 
     def create
-      @prompting_plan = PromptingPlan.new(plan_params)
+      @prompting_plan = PromptingPlan.new(prompting_plan_params)
       @prompting_plan.user = current_user
 
       if @prompting_plan.save
@@ -33,7 +33,7 @@ module Dashboard
     end
 
     def update
-      if @prompting_plan.update(plan_params)
+      if @prompting_plan.update(prompting_plan_params)
         flash[:notice] = "Plan was successfully updated."
         redirect_to dashboard_prompting_plan_url(@prompting_plan), status: :see_other
       else
@@ -56,11 +56,11 @@ module Dashboard
         end
       end
 
-      def set_plan
+      def set_prompting_plan
         @prompting_plan = PromptingPlan.find(params[:id])
       end
 
-      def plan_params
+      def prompting_plan_params
         params.require(:prompting_plan).permit(
           :name,
           :sd_model_name,

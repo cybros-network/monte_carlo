@@ -24,3 +24,4 @@ zh-CN:
         home: "总览"
         glossaries: "词库管理"
         prompting_plans: "生成规则管理"
+        prompting_tasks: "生成任务管理"

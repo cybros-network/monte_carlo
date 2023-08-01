@@ -5,6 +5,8 @@ class PromptingPlan < ApplicationRecord
 
   has_many :prompt_elements, dependent: :delete_all
 
+  has_many :prompting_tasks, dependent: :nullify
+
   validates :name,
             presence: true,
             allow_blank: false
@@ -29,8 +31,8 @@ class PromptingPlan < ApplicationRecord
             presence: true,
             numericality: {
               only_integer: true,
-              greater_than_or_equal_to: 64,
-              less_than_or_equal_to: 2048
+              greater_than_or_equal_to: Constants::WIDTH_RANGE.begin,
+              less_than_or_equal_to: Constants::WIDTH_RANGE.end
             },
             allow_blank: false
 
@@ -38,25 +40,26 @@ class PromptingPlan < ApplicationRecord
             presence: true,
             numericality: {
               only_integer: true,
-              greater_than_or_equal_to: 64,
-              less_than_or_equal_to: 2048
+              greater_than_or_equal_to: Constants::HEIGHT_RANGE.begin,
+              less_than_or_equal_to: Constants::HEIGHT_RANGE.end
             },
             allow_blank: false
 
   validates :fixed_seed,
             numericality: {
               only_integer: true,
-              greater_than_or_equal_to: -100000,
-              less_than_or_equal_to: 100000
+              greater_than_or_equal_to: Constants::RANDOM_SEED_RANGE.begin,
+              less_than_or_equal_to: Constants::RANDOM_SEED_RANGE.end
             },
-            allow_blank: true
+            allow_blank: false,
+            allow_nil: true
 
   validates :min_steps,
             presence: true,
             numericality: {
               only_integer: true,
-              greater_than_or_equal_to: 1,
-              less_than_or_equal_to: 25, # 150
+              greater_than_or_equal_to: Constants::STEP_RANGE.begin,
+              less_than_or_equal_to: Constants::STEP_RANGE.end,
             },
             allow_blank: false
 
@@ -64,8 +67,8 @@ class PromptingPlan < ApplicationRecord
             presence: true,
             numericality: {
               only_integer: true,
-              greater_than_or_equal_to: 1,
-              less_than_or_equal_to: 25, # 150
+              greater_than_or_equal_to: Constants::STEP_RANGE.begin,
+              less_than_or_equal_to: Constants::STEP_RANGE.end
             },
             allow_blank: false
   validate do |record|
@@ -78,8 +81,8 @@ class PromptingPlan < ApplicationRecord
             presence: true,
             numericality: {
               only_integer: false,
-              greater_than_or_equal_to: 1,
-              less_than_or_equal_to: 30,
+              greater_than_or_equal_to: Constants::CFG_SCALE_RANGE.begin,
+              less_than_or_equal_to: Constants::CFG_SCALE_RANGE.end
             },
             allow_blank: false
 
@@ -87,8 +90,8 @@ class PromptingPlan < ApplicationRecord
             presence: true,
             numericality: {
               only_integer: false,
-              greater_than_or_equal_to: 1,
-              less_than_or_equal_to: 30
+              greater_than_or_equal_to: Constants::CFG_SCALE_RANGE.begin,
+              less_than_or_equal_to: Constants::CFG_SCALE_RANGE.end
             },
             allow_blank: false
   validate do |record|
@@ -110,8 +113,8 @@ class PromptingPlan < ApplicationRecord
             presence: true,
             numericality: {
               only_integer: false,
-              greater_than_or_equal_to: 1,
-              less_than_or_equal_to: 4
+              greater_than_or_equal_to: Constants::HIRES_FIX_UPSCALE_RANGE.begin,
+              less_than_or_equal_to: Constants::HIRES_FIX_UPSCALE_RANGE.end
             },
             allow_blank: false,
             if: :hires_fix?
@@ -120,8 +123,8 @@ class PromptingPlan < ApplicationRecord
             presence: true,
             numericality: {
               only_integer: true,
-              greater_than_or_equal_to: 0,
-              less_than_or_equal_to: 25, # 150
+              greater_than_or_equal_to: Constants::HIRES_FIX_STEPS_RANGE.begin,
+              less_than_or_equal_to: Constants::HIRES_FIX_STEPS_RANGE.end
             },
             allow_blank: false,
             if: :hires_fix?
@@ -130,8 +133,8 @@ class PromptingPlan < ApplicationRecord
             presence: true,
             numericality: {
               only_integer: true,
-              greater_than_or_equal_to: 1,
-              less_than_or_equal_to: 25, # 150
+              greater_than_or_equal_to: Constants::HIRES_FIX_STEPS_RANGE.begin,
+              less_than_or_equal_to: Constants::HIRES_FIX_STEPS_RANGE.end
             },
             allow_blank: false,
             if: :hires_fix?
@@ -147,8 +150,8 @@ class PromptingPlan < ApplicationRecord
             presence: true,
             numericality: {
               only_integer: false,
-              greater_than_or_equal_to: 0,
-              less_than_or_equal_to: 1,
+              greater_than_or_equal_to: Constants::HIRES_FIX_DENOISING_RANGE.begin,
+              less_than_or_equal_to: Constants::HIRES_FIX_DENOISING_RANGE.end
             },
             allow_blank: false,
             if: :hires_fix?
@@ -157,8 +160,8 @@ class PromptingPlan < ApplicationRecord
             presence: true,
             numericality: {
               only_integer: false,
-              greater_than_or_equal_to: 0,
-              less_than_or_equal_to: 1
+              greater_than_or_equal_to: Constants::HIRES_FIX_DENOISING_RANGE.begin,
+              less_than_or_equal_to: Constants::HIRES_FIX_DENOISING_RANGE.end
             },
             allow_blank: false,
             if: :hires_fix?
@@ -189,5 +192,51 @@ class PromptingPlan < ApplicationRecord
     record.hires_fix_max_steps ||= 1
     record.hires_fix_min_denoising ||= 0.7
     record.hires_fix_max_denoising ||= 0.7
+  end
+
+  def build_prompting_task
+    round_to = -> (b, v) {
+      (b / v).round * v
+    }
+
+    prompts = []
+    negative_prompts = []
+    prompt_elements.includes(glossary: :vocabularies).sort_by(&:order).reverse_each do |elem|
+      case elem
+      when VocabularyPromptElement
+        if elem.negative?
+          negative_prompts << elem.text
+        else
+          prompts << elem.text
+        end
+      when GlossaryPromptElement
+        elem.glossary.vocabularies.sample(elem.frequency).each do |vocabulary|
+          if elem.negative?
+            negative_prompts << vocabulary.text
+          else
+            prompts << vocabulary.text
+          end
+        end
+      else
+        next
+      end
+    end
+
+    prompting_tasks.build(
+      prompt: prompts.join(","),
+      negative_prompt: negative_prompts.join(","),
+      sd_model_name: sd_model_name,
+      sampler_name: sampler_name,
+      width: width,
+      height: height,
+      seed: fixed_seed.present? ? fixed_seed : rand(Constants::RANDOM_SEED_RANGE),
+      steps: rand(min_steps..max_steps),
+      cfg_scale: round_to.call(rand(min_cfg_scale..max_cfg_scale), 0.5),
+      hires_fix: hires_fix,
+      hires_fix_upscaler_name: hires_fix_upscaler_name,
+      hires_fix_upscale: round_to.call(hires_fix_upscale, 0.05),
+      hires_fix_steps: rand(hires_fix_min_steps..hires_fix_max_steps),
+      hires_fix_denoising: rand(hires_fix_min_denoising..hires_fix_max_denoising).round(2)
+    )
   end
 end

@@ -1,0 +1,104 @@
+<div class="row align-items-center justify-content-between g-3 mb-3">
+  <div class="col-12 col-md-auto">
+    <h2 class="mb-0">Task #<%= @prompting_task.id %></h2>
+  </div>
+  <div class="col-12 col-md-auto d-flex">
+    <%= link_to edit_dashboard_prompting_task_path(@prompting_task), class: "btn btn-outline-primary px-3 px-sm-5 me-2" do %>
+      <span class="d-none d-sm-inline">
+        Edit
+      </span>
+    <% end %>
+
+    <div>
+      <button class="btn px-3 btn-outline-secondary" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="true" data-bs-reference="parent">
+        <i class="bi bi-three-dots"></i>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end" data-popper-placement="bottom-end">
+        <li>
+          <%= button_to "Delete", dashboard_prompting_task_path(@prompting_task), method: :delete, class: "dropdown-item text-danger" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<dl class="row mb-3">
+  <dt class="col-sm-3">
+    Prompt
+  </dt>
+  <dd class="col-sm-9">
+    <%= @prompting_task.prompt %>
+  </dd>
+
+  <dt class="col-sm-3">
+    Negative prompt
+  </dt>
+  <dd class="col-sm-9">
+    <%= @prompting_task.negative_prompt %>
+  </dd>
+
+  <dt class="col-sm-3">
+    SD model
+  </dt>
+  <dd class="col-sm-9">
+    <%= @prompting_task.sd_model_name %>
+  </dd>
+
+  <dt class="col-sm-3">
+    Sampler
+  </dt>
+  <dd class="col-sm-9">
+    <%= @prompting_task.sampler_name %>
+  </dd>
+
+  <dt class="col-sm-3">
+    Width x Height
+  </dt>
+  <dd class="col-sm-9">
+    <%= @prompting_task.width %> x <%= @prompting_task.height %>
+  </dd>
+
+  <dt class="col-sm-3">
+    Steps
+  </dt>
+  <dd class="col-sm-9">
+    <%= @prompting_task.steps %>
+  </dd>
+
+  <dt class="col-sm-3">
+    CFG scale
+  </dt>
+  <dd class="col-sm-9">
+    <%= @prompting_task.cfg_scale %>
+  </dd>
+
+  <%- if @prompting_task.hires_fix? %>
+    <dt class="col-sm-3">
+      Hires. upscaler
+    </dt>
+    <dd class="col-sm-9">
+      <%= @prompting_task.hires_fix_upscaler_name %>
+    </dd>
+
+    <dt class="col-sm-3">
+      Hires. upscale
+    </dt>
+    <dd class="col-sm-9">
+      <%= @prompting_task.hires_fix_upscale %>
+    </dd>
+
+    <dt class="col-sm-3">
+      Hires. steps
+    </dt>
+    <dd class="col-sm-9">
+      <%= @prompting_task.hires_fix_steps %>
+    </dd>
+
+    <dt class="col-sm-3">
+      Hires. denoising
+    </dt>
+    <dd class="col-sm-9">
+      <%= @prompting_task.hires_fix_denoising %>
+    </dd>
+  <% end -%>
+</dl>

@@ -1,13 +1,12 @@
-<%= form_with(model: [:dashboard, glossary, vocabulary], local: true, class: "row row-cols-lg-auto g-3 align-items-center mb-3") do |f| %>
-  <%= hidden_field_tag "_inline", true %>
-
+<%= form_with(url: import_dashboard_glossary_vocabularies_path(glossary), local: true, class: "row row-cols-lg-auto g-3 align-items-center mb-3") do %>
   <div class="col-12">
-    <%= f.label :text, class: "visually-hidden" %>
-    <%= f.text_field :text, autofocus: true, required: "required", class: "form-control", class_for_error: "is-invalid" %>
-    <%= f.error_message :text, class: "invalid-feedback" %>
+    <%= label_tag :comma_separated_text %>
+  </div>
+  <div class="col-12">
+    <%= text_field_tag :comma_separated_text, "", required: "required", class: "form-control", class_for_error: "is-invalid" %>
   </div>
 
   <div class="col-12">
-    <%= f.submit class: "btn btn-primary" %>
+    <%= submit_tag "Add", class: "btn btn-primary" %>
   </div>
 <% end %>

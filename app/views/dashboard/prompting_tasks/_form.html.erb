@@ -1,0 +1,85 @@
+<%- back_path ||= dashboard_prompting_tasks_path -%>
+<%= form_with(model: [:dashboard, prompting_task], local: true) do |f| %>
+  <div class="mb-3">
+    <%= f.label :prompt %>
+    <%= f.text_area :prompt, required: "required", class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :prompt, class: "invalid-feedback" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :negative_prompt %>
+    <%= f.text_area :negative_prompt, class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :negative_prompt, class: "invalid-feedback" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :sd_model_name %>
+    <%= f.select :sd_model_name, Constants::SUPPORTED_SD_MODEL_NAMES, { include_blank: false }, class: "form-select", class_for_error: "is-invalid" %>
+    <%= f.error_message :sd_model_name, class: "invalid-feedback" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :sampler_name %>
+    <%= f.select :sampler_name, Constants::SUPPORTED_SAMPLER_NAMES, { include_blank: false }, class: "form-select", class_for_error: "is-invalid" %>
+    <%= f.error_message :sampler_name, class: "invalid-feedback" %>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      <%= f.label :width %>
+      <%= f.number_field :width, required: "required", class: "form-control", class_for_error: "is-invalid" %>
+      <%= f.error_message :width, class: "invalid-feedback" %>
+    </div>
+    <div class="col">
+      <%= f.label :height %>
+      <%= f.number_field :height, required: "required", class: "form-control", class_for_error: "is-invalid" %>
+      <%= f.error_message :height, class: "invalid-feedback" %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :steps %>
+    <%= f.number_field :steps, required: "required", class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :steps, class: "invalid-feedback" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :cfg_scale %>
+    <%= f.number_field :cfg_scale, required: "required", class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :cfg_scale, class: "invalid-feedback" %>
+  </div>
+
+  <div class="mb-3">
+    <div class="form-check">
+      <%= f.check_box :hires_fix, class: "form-check-input" %>
+      <%= f.label :hires_fix, class: "form-check-label" %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :hires_fix_upscaler_name %>
+    <%= f.select :hires_fix_upscaler_name, Constants::SUPPORTED_HIRES_UPSCALER_NAMES, { include_blank: false }, class: "form-select", class_for_error: "is-invalid" %>
+    <%= f.error_message :hires_fix_upscaler_name, class: "invalid-feedback" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :hires_fix_upscale %>
+    <%= f.number_field :hires_fix_upscale, class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :hires_fix_upscale, class: "invalid-feedback" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :hires_fix_steps %>
+    <%= f.number_field :hires_fix_steps, class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :hires_fix_steps, class: "invalid-feedback" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :hires_fix_denoising %>
+    <%= f.number_field :hires_fix_denoising, class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :hires_fix_denoising, class: "invalid-feedback" %>
+  </div>
+
+  <%= f.submit class: "btn btn-primary" %>
+  <%= link_to "Discard & back", back_path, class: "btn btn-link" %>
+<% end %>

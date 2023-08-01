@@ -8,7 +8,11 @@ Rails.application.routes.draw do
 
     resources :glossaries do
       scope module: "glossaries" do
-        resources :vocabularies, only: %i[index create destroy]
+        resources :vocabularies, only: %i[index create destroy] do
+          collection do
+            post "import"
+          end
+        end
       end
     end
 
@@ -17,6 +21,8 @@ Rails.application.routes.draw do
         resources :prompt_elements, only: %i[index create update destroy]
       end
     end
+
+    resources :prompting_tasks
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

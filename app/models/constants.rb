@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 module Constants
+  RANDOM_SEED_RANGE = -100000..100000
+  STEP_RANGE = 1..30 # 1..150
+  WIDTH_RANGE = 64..2048
+  HEIGHT_RANGE = 64..2048
+  CFG_SCALE_RANGE = (1.0)..(30.0)
+  HIRES_FIX_UPSCALE_RANGE = (1.0)..(4.0)
+  HIRES_FIX_STEPS_RANGE = 1..30 # 1..150
+  HIRES_FIX_DENOISING_RANGE = (0.0)..(1.0)
+
   SUPPORTED_SD_MODELS = [
     {
       name: "nekothecat_nekov3",
