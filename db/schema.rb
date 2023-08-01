@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_07_31_084721) do
+ActiveRecord::Schema[7.1].define(version: 2023_07_31_222824) do
   create_table "glossaries", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -27,6 +27,43 @@ ActiveRecord::Schema[7.1].define(version: 2023_07_31_084721) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
+  create_table "prompt_elements", force: :cascade do |t|
+    t.integer "prompting_plan_id", null: false
+    t.boolean "negative", default: false, null: false
+    t.string "text"
+    t.integer "glossary_id"
+    t.integer "frequency"
+    t.string "type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["glossary_id"], name: "index_prompt_elements_on_glossary_id"
+    t.index ["prompting_plan_id"], name: "index_prompt_elements_on_prompting_plan_id"
+  end
+
+  create_table "prompting_plans", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "name", null: false
+    t.string "sd_model_name", null: false
+    t.string "sampler_name", null: false
+    t.integer "width", null: false
+    t.integer "height", null: false
+    t.integer "fixed_seed"
+    t.integer "min_steps", null: false
+    t.integer "max_steps", null: false
+    t.float "min_cfg_scale", null: false
+    t.float "max_cfg_scale", null: false
+    t.boolean "hires_fix", null: false
+    t.string "hires_fix_upscaler_name"
+    t.float "hires_fix_upscale"
+    t.integer "hires_fix_min_steps"
+    t.integer "hires_fix_max_steps"
+    t.float "hires_fix_min_denoising"
+    t.float "hires_fix_max_denoising"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_prompting_plans_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -69,12 +106,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_07_31_084721) do
   create_table "vocabularies", force: :cascade do |t|
     t.string "text", null: false
     t.integer "glossary_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["glossary_id"], name: "index_vocabularies_on_glossary_id"
   end
 
   add_foreign_key "glossaries", "users"
   add_foreign_key "identities", "users"
+  add_foreign_key "prompt_elements", "glossaries"
+  add_foreign_key "prompt_elements", "prompting_plans"
+  add_foreign_key "prompting_plans", "users"
   add_foreign_key "vocabularies", "glossaries"
 end

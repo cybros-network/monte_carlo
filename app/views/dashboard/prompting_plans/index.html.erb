@@ -1,0 +1,39 @@
+<div class="row align-items-center justify-content-between g-3 mb-3">
+  <div class="col-12 col-md-auto">
+    <h2 class="mb-0">Prompting plans</h2>
+  </div>
+  <div class="col-12 col-md-auto d-flex">
+    <%= link_to new_dashboard_prompting_plan_path, class: "btn btn-outline-primary px-3 px-sm-5 me-2" do %>
+      <span class="d-none d-sm-inline">
+        New
+      </span>
+    <% end %>
+  </div>
+</div>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @prompting_plans.each do |plan| %>
+    <tr>
+      <th scope="row">
+        <%= plan.id %>
+      </th>
+      <td>
+        <%= plan.name %>
+      </td>
+      <td>
+        <%= link_to "Show", dashboard_prompting_plan_path(plan) %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= paginate @prompting_plans %>

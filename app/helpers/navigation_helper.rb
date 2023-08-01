@@ -92,7 +92,7 @@ module NavigationHelper
 
   def active_nav_item?(options)
     if paths = options.delete(:paths)
-      paths.map {|path| active_nav_item? path}.reduce(&:|)
+      paths.map { |path| active_nav_item? path }.reduce(&:|)
     elsif path = options.delete(:path)
       unless path.respond_to?(:each)
         path = [path]

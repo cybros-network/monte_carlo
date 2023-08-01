@@ -14,5 +14,10 @@
         <%= t("layouts.sidebar.dashboard.glossaries") %>
       <% end %>
     </li>
+    <li class="nav-item">
+      <%= nav_link_to dashboard_prompting_plans_path, paths: [{ controller: "dashboard/prompting_plans" }, { namespace: "dashboard/prompting_plans" }], class: "nav-link" do %>
+        <%= t("layouts.sidebar.dashboard.prompting_plans") %>
+      <% end %>
+    </li>
   </ul>
 </li>

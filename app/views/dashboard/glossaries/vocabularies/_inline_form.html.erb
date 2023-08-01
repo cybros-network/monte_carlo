@@ -1,5 +1,6 @@
 <%= form_with(model: [:dashboard, glossary, vocabulary], local: true, class: "row row-cols-lg-auto g-3 align-items-center mb-3") do |f| %>
   <%= hidden_field_tag "_inline", true %>
+
   <div class="col-12">
     <%= f.label :text, class: "visually-hidden" %>
     <%= f.text_field :text, autofocus: true, required: "required", class: "form-control", class_for_error: "is-invalid" %>

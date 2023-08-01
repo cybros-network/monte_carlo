@@ -1,0 +1,31 @@
+<%= form_with(model: [:dashboard, prompting_plan, prompt_element.becomes(PromptElement)], local: true, class: "row row-cols-lg-auto g-3 align-items-center mb-3") do |f| %>
+  <%= hidden_field_tag "_inline", true %>
+  <%= hidden_field_tag "_type", "Glossary" %>
+
+  <div class="col-12">
+    <%= f.label :glossary_id %>
+  </div>
+  <div class="col-12">
+    <%= f.collection_select :glossary_id, Glossary.where(user: current_user), :id, :name, { include_blank: false }, class: "form-select", class_for_error: "is-invalid" %>
+    <%= f.error_message :glossary_id, class: "invalid-feedback" %>
+  </div>
+
+  <div class="col-12">
+    <%= f.label :frequency %>
+  </div>
+  <div class="col-12">
+    <%= f.number_field :frequency, required: "required", class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :frequency, class: "invalid-feedback" %>
+  </div>
+
+  <div class="col-12">
+    <div class="form-check">
+      <%= f.check_box :negative, class: "form-check-input" %>
+      <%= f.label :negative, class: "form-check-label" %>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

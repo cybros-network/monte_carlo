@@ -5,26 +5,21 @@ module Dashboard
     before_action :set_glossary, only: %i[show edit update destroy]
     before_action :ensure_owner!, except: %i[index new create]
 
-    # GET /glossaries
     def index
       @glossaries = Glossary.where(user: current_user).page(params[:page]).per(params[:per_page])
     end
 
-    # GET /glossaries/1
     def show
       redirect_to dashboard_glossary_vocabularies_url(@glossary), status: :see_other
     end
 
-    # GET /glossaries/new
     def new
       @glossary = Glossary.new
     end
 
-    # GET /glossaries/1/edit
     def edit
     end
 
-    # POST /glossaries
     def create
       @glossary = Glossary.new(glossary_params)
       @glossary.user = current_user
@@ -37,7 +32,6 @@ module Dashboard
       end
     end
 
-    # PATCH/PUT /glossaries/1
     def update
       if @glossary.update(glossary_params)
         flash[:notice] = "Glossary was successfully updated."
@@ -47,7 +41,6 @@ module Dashboard
       end
     end
 
-    # DELETE /glossaries/1
     def destroy
       @glossary.destroy!
 
