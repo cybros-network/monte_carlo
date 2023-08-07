@@ -1,24 +1,15 @@
-# README
+Monte-Carlo.ai
+====
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Requirements
 
-Things you may want to cover:
+- Ruby 3.2
 
-* Ruby version
+## Prepare
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- `git clone`
+- `bundle`
+- `cp config/database.yml.sqlite.example config/database.yml`
+- `cp config/mailer.yml.example config/mailer.yml`
+- `cp config/settings.yml config/settings.local.yml`
+- `EDITOR="vim" bin/rails credentials:edit` and save

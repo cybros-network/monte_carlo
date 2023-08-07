@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: ff470edccc746fe3cf466a0fa54fb08383e8de66
+  revision: 129fe98f4cc74be53c7d194ff2faf06d9b382c41
   branch: main
   specs:
     actioncable (7.1.0.alpha)
@@ -40,7 +40,7 @@ GIT
       net-imap
       net-pop
       net-smtp
-      rails-dom-testing (~> 2.0)
+      rails-dom-testing (~> 2.2)
     actionpack (7.1.0.alpha)
       actionview (= 7.1.0.alpha)
       activesupport (= 7.1.0.alpha)
@@ -48,7 +48,7 @@ GIT
       rack (>= 2.2.4)
       rack-session (>= 1.0.1)
       rack-test (>= 0.6.3)
-      rails-dom-testing (~> 2.0)
+      rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
     actiontext (7.1.0.alpha)
       actionpack (= 7.1.0.alpha)
@@ -61,7 +61,7 @@ GIT
       activesupport (= 7.1.0.alpha)
       builder (~> 3.1)
       erubi (~> 1.11)
-      rails-dom-testing (~> 2.0)
+      rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
     activejob (7.1.0.alpha)
       activesupport (= 7.1.0.alpha)
@@ -121,7 +121,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.8.4)
+    addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     aes_key_wrap (1.1.0)
     ast (2.4.2)
@@ -164,7 +164,7 @@ GEM
     dry-configurable (1.1.0)
       dry-core (~> 1.0, < 2)
       zeitwerk (~> 2.6)
-    dry-core (1.0.0)
+    dry-core (1.0.1)
       concurrent-ruby (~> 1.0)
       zeitwerk (~> 2.6)
     dry-inflector (1.0.0)
@@ -195,11 +195,12 @@ GEM
       zeitwerk (~> 2.6)
     error_highlight (0.5.1)
     erubi (1.12.0)
-    eth (0.5.10)
+    eth (0.5.11)
+      forwardable (~> 1.3)
       keccak (~> 1.3)
       konstructor (~> 1.0)
       openssl (>= 2.2, < 4.0)
-      rbsecp256k1 (~> 5.1)
+      rbsecp256k1 (~> 6.0)
       scrypt (~> 3.0)
     faraday (2.7.10)
       faraday-net_http (>= 2.0, < 3.1)
@@ -211,6 +212,7 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
+    forwardable (1.3.3)
     globalid (1.1.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
@@ -330,7 +332,7 @@ GEM
     rackup (2.1.0)
       rack (>= 3)
       webrick (~> 1.8)
-    rails-dom-testing (2.1.1)
+    rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
@@ -342,7 +344,7 @@ GEM
       railties (>= 6.0.0, < 8)
     rainbow (3.1.1)
     rake (13.0.6)
-    rbsecp256k1 (5.1.1)
+    rbsecp256k1 (6.0.0)
       mini_portile2 (~> 2.8)
       pkg-config (~> 1.5)
       rubyzip (~> 2.3)
