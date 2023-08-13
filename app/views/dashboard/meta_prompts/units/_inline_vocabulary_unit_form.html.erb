@@ -1,4 +1,4 @@
-<%= form_with(model: [:dashboard, prompting_plan, prompt_element.becomes(PromptElement)], local: true, class: "row row-cols-lg-auto g-3 align-items-center mb-3") do |f| %>
+<%= form_with(model: unit, scope: :meta_prompt_unit, url: dashboard_meta_prompt_units_path, local: true, class: "row row-cols-lg-auto g-3 align-items-center mb-3") do |f| %>
   <%= hidden_field_tag "_inline", true %>
   <%= hidden_field_tag "_type", "Vocabulary" %>
 

@@ -1,15 +1,15 @@
 <div class="row align-items-center justify-content-between g-3 mb-3">
   <div class="col-12 col-md-auto">
-    <h2 class="mb-0">Task #<%= @prompting_task.id %></h2>
+    <h2 class="mb-0">Task #<%= @prompt_task.id %></h2>
   </div>
   <div class="col-12 col-md-auto d-flex">
-    <%- if @prompting_task.pending? %>
-      <%= button_to submit_dashboard_prompting_task_path(@prompting_task), method: :patch, class: "btn btn-primary px-3 px-sm-5 me-2" do %>
+    <%- if @prompt_task.pending? %>
+      <%= button_to submit_dashboard_prompt_task_path(@prompt_task), method: :patch, class: "btn btn-primary px-3 px-sm-5 me-2" do %>
         <span class="d-none d-sm-inline">
           Run
         </span>
       <% end %>
-      <%= link_to edit_dashboard_prompting_task_path(@prompting_task), class: "btn btn-outline-primary px-3 px-sm-5 me-2" do %>
+      <%= link_to edit_dashboard_prompt_task_path(@prompt_task), class: "btn btn-outline-primary px-3 px-sm-5 me-2" do %>
         <span class="d-none d-sm-inline">
           Edit
         </span>
@@ -22,7 +22,7 @@
       </button>
       <ul class="dropdown-menu dropdown-menu-end" data-popper-placement="bottom-end">
         <li>
-          <%= button_to "Delete", dashboard_prompting_task_path(@prompting_task), method: :delete, class: "dropdown-item text-danger" %>
+          <%= button_to "Delete", dashboard_prompt_task_path(@prompt_task), method: :delete, class: "dropdown-item text-danger" %>
         </li>
       </ul>
     </div>
@@ -34,55 +34,55 @@
     Status
   </dt>
   <dd class="col-sm-9">
-    <%= @prompting_task.status %>
+    <%= @prompt_task.status %>
   </dd>
 
-  <%- unless @prompting_task.pending? %>
+  <%- unless @prompt_task.pending? %>
     <dt class="col-sm-3">
       Prompt
     </dt>
     <dd class="col-sm-9">
-      <%= @prompting_task.frozen_prompt %>
+      <%= @prompt_task.frozen_prompt %>
     </dd>
 
-    <%- if @prompting_task.submitting_at.present? %>
+    <%- if @prompt_task.submitting_at.present? %>
       <dt class="col-sm-3">
         Submitting at
       </dt>
       <dd class="col-sm-9">
-        <%= time_tag @prompting_task.submitting_at %>
+        <%= time_tag @prompt_task.submitting_at %>
       </dd>
     <% end -%>
-    <%- if @prompting_task.submitted_at.present? %>
+    <%- if @prompt_task.submitted_at.present? %>
       <dt class="col-sm-3">
         Submitted at
       </dt>
       <dd class="col-sm-9">
-        <%= time_tag @prompting_task.submitted_at %>
+        <%= time_tag @prompt_task.submitted_at %>
       </dd>
     <% end -%>
-    <%- if @prompting_task.processing_at.present? %>
+    <%- if @prompt_task.processing_at.present? %>
       <dt class="col-sm-3">
         Processing at
       </dt>
       <dd class="col-sm-9">
-        <%= time_tag @prompting_task.processing_at %>
+        <%= time_tag @prompt_task.processing_at %>
       </dd>
     <% end -%>
-    <%- if @prompting_task.processed_at.present? %>
+    <%- if @prompt_task.processed_at.present? %>
       <dt class="col-sm-3">
         Processed at
       </dt>
       <dd class="col-sm-9">
-        <%= time_tag @prompting_task.processed_at %>
+        <%= time_tag @prompt_task.processed_at %>
       </dd>
     <% end -%>
-    <%- if @prompting_task.discarded_at.present? %>
+    <%- if @prompt_task.discarded_at.present? %>
       <dt class="col-sm-3">
         Discarded at
       </dt>
       <dd class="col-sm-9">
-        <%= time_tag @prompting_task.discarded_at %>
+        <%= time_tag @prompt_task.discarded_at %>
       </dd>
     <% end -%>
   <% end -%>
@@ -95,78 +95,78 @@
     Prompt
   </dt>
   <dd class="col-sm-9">
-    <%= @prompting_task.positive_prompt %>
+    <%= @prompt_task.positive_prompt %>
   </dd>
 
   <dt class="col-sm-3">
     Negative prompt
   </dt>
   <dd class="col-sm-9">
-    <%= @prompting_task.negative_prompt %>
+    <%= @prompt_task.negative_prompt %>
   </dd>
 
   <dt class="col-sm-3">
     SD model
   </dt>
   <dd class="col-sm-9">
-    <%= @prompting_task.sd_model_name %>
+    <%= @prompt_task.sd_model_name %>
   </dd>
 
   <dt class="col-sm-3">
     Sampler
   </dt>
   <dd class="col-sm-9">
-    <%= @prompting_task.sampler_name %>
+    <%= @prompt_task.sampler_name %>
   </dd>
 
   <dt class="col-sm-3">
     Width x Height
   </dt>
   <dd class="col-sm-9">
-    <%= @prompting_task.width %> x <%= @prompting_task.height %>
+    <%= @prompt_task.width %> x <%= @prompt_task.height %>
   </dd>
 
   <dt class="col-sm-3">
     Steps
   </dt>
   <dd class="col-sm-9">
-    <%= @prompting_task.steps %>
+    <%= @prompt_task.steps %>
   </dd>
 
   <dt class="col-sm-3">
     CFG scale
   </dt>
   <dd class="col-sm-9">
-    <%= @prompting_task.cfg_scale %>
+    <%= @prompt_task.cfg_scale %>
   </dd>
 
-  <%- if @prompting_task.hires_fix? %>
+  <%- if @prompt_task.hires_fix? %>
     <dt class="col-sm-3">
       Hires. upscaler
     </dt>
     <dd class="col-sm-9">
-      <%= @prompting_task.hires_fix_upscaler_name %>
+      <%= @prompt_task.hires_fix_upscaler_name %>
     </dd>
 
     <dt class="col-sm-3">
       Hires. upscale
     </dt>
     <dd class="col-sm-9">
-      <%= @prompting_task.hires_fix_upscale %>
+      <%= @prompt_task.hires_fix_upscale %>
     </dd>
 
     <dt class="col-sm-3">
       Hires. steps
     </dt>
     <dd class="col-sm-9">
-      <%= @prompting_task.hires_fix_steps %>
+      <%= @prompt_task.hires_fix_steps %>
     </dd>
 
     <dt class="col-sm-3">
       Hires. denoising
     </dt>
     <dd class="col-sm-9">
-      <%= @prompting_task.hires_fix_denoising %>
+      <%= @prompt_task.hires_fix_denoising %>
     </dd>
   <% end -%>
 </dl>

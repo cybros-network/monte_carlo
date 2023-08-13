@@ -3,17 +3,17 @@
 module NavigationHelper
   # Navigation helper
   #
-  # Returns an `li` element with an 'active' class if the supplied
+  # Returns an `li` unit with an 'active' class if the supplied
   # controller(s) and/or action(s) are currently active. The content of the
-  # element is the value passed to the block.
+  # unit is the value passed to the block.
   #
-  # options - The options hash used to determine if the element is "active" (default: {})
+  # options - The options hash used to determine if the unit is "active" (default: {})
   #           :controller   - One or more controller names to check, use path notation when namespaced (optional).
   #           :action       - One or more action names to check (optional).
   #           :path         - A shorthand path, such as 'dashboard#index', to check (optional).
-  #           :html_options - Extra options to be passed to the list element (optional).
+  #           :html_options - Extra options to be passed to the list unit (optional).
   # block   - An optional block that will become the contents of the returned
-  #           `li` element.
+  #           `li` unit.
   #
   # When both :controller and :action are specified, BOTH must match in order
   # to be marked as active. When only one is given, either can match.
@@ -38,7 +38,7 @@ module NavigationHelper
   #   nav_link(path: 'tree#show') { "Hello" }
   #   # => '<li class="active">Hello</li>'
   #
-  #   # Supplying custom options for the list element
+  #   # Supplying custom options for the list unit
   #   nav_link(controller: :tree, html_options: {class: 'home'}) { "Hello" }
   #   # => '<li class="home active">Hello</li>'
   #
@@ -56,7 +56,7 @@ module NavigationHelper
   #   nav_link(path: 'admin/appearances#show') { "Hello" }
   #   # => '<li class="active">Hello</li>'
   #
-  # Returns a list item element String
+  # Returns a list item unit String
   def nav_item(options = {}, &block)
     klass = active_nav_item?(options) ? "active" : ""
 

@@ -16,13 +16,13 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :prompting_plans do
-      scope module: "prompting_plans" do
-        resources :prompt_elements, only: %i[index create update destroy]
+    resources :meta_prompts do
+      scope module: "meta_prompts" do
+        resources :units, only: %i[index create update destroy]
       end
     end
 
-    resources :prompting_tasks do
+    resources :prompt_tasks do
       member do
         patch "submit"
       end

@@ -1,9 +1,9 @@
-class CreatePromptingTasks < ActiveRecord::Migration[7.1]
+class CreatePromptTasks < ActiveRecord::Migration[7.1]
   def change
-    create_table :prompting_tasks do |t|
+    create_table :prompt_tasks do |t|
       t.references :user, null: false, foreign_key: true
 
-      t.references :prompting_plan, null: true, foreign_key: true
+      t.references :meta_prompt, null: true, foreign_key: true
 
       t.text :positive_prompt, null: false
       t.text :negative_prompt

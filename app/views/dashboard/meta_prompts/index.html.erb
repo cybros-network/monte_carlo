@@ -3,7 +3,7 @@
     <h2 class="mb-0">Prompting plans</h2>
   </div>
   <div class="col-12 col-md-auto d-flex">
-    <%= link_to new_dashboard_prompting_plan_path, class: "btn btn-outline-primary px-3 px-sm-5 me-2" do %>
+    <%= link_to new_dashboard_meta_prompt_path, class: "btn btn-outline-primary px-3 px-sm-5 me-2" do %>
       <span class="d-none d-sm-inline">
         New
       </span>
@@ -20,7 +20,7 @@
   </tr>
   </thead>
   <tbody>
-  <% @prompting_plans.each do |plan| %>
+  <% @meta_prompts.each do |plan| %>
     <tr>
       <th scope="row">
         <%= plan.id %>
@@ -29,11 +29,11 @@
         <%= plan.name %>
       </td>
       <td>
-        <%= link_to "Show", dashboard_prompting_plan_path(plan) %>
+        <%= link_to "Show", dashboard_meta_prompt_path(plan) %>
       </td>
     </tr>
   <% end %>
   </tbody>
 </table>
 
-<%= paginate @prompting_plans %>
+<%= paginate @meta_prompts %>

@@ -15,13 +15,13 @@
       <% end %>
     </li>
     <li class="nav-item">
-      <%= nav_link_to dashboard_prompting_plans_path, paths: [{ controller: "dashboard/prompting_plans" }, { namespace: "dashboard/prompting_plans" }], class: "nav-link" do %>
-        <%= t("layouts.sidebar.dashboard.prompting_plans") %>
+      <%= nav_link_to dashboard_meta_prompts_path, paths: [{ controller: "dashboard/meta_prompts" }, { namespace: "dashboard/meta_prompts" }], class: "nav-link" do %>
+        <%= t("layouts.sidebar.dashboard.meta_prompts") %>
       <% end %>
     </li>
     <li class="nav-item">
-      <%= nav_link_to dashboard_prompting_tasks_path, controller: "dashboard/prompting_tasks", class: "nav-link" do %>
-        <%= t("layouts.sidebar.dashboard.prompting_tasks") %>
+      <%= nav_link_to dashboard_prompt_tasks_path, controller: "dashboard/prompt_tasks", class: "nav-link" do %>
+        <%= t("layouts.sidebar.dashboard.prompt_tasks") %>
       <% end %>
     </li>
   </ul>

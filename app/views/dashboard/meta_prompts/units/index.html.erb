@@ -1,0 +1,147 @@
+<div class="row align-items-center justify-content-between g-3 mb-3">
+  <div class="col-12 col-md-auto">
+    <h2 class="mb-0"><%= @meta_prompt.name %></h2>
+  </div>
+  <div class="col-12 col-md-auto d-flex">
+    <%= button_to dashboard_prompt_tasks_path(meta_prompt_id: @meta_prompt.id), class: "btn btn-primary px-3 px-sm-5 me-2" do %>
+      <span class="d-none d-sm-inline">
+        New task
+      </span>
+    <% end %>
+    <%= link_to edit_dashboard_meta_prompt_path(@meta_prompt), class: "btn btn-outline-primary px-3 px-sm-5 me-2" do %>
+      <span class="d-none d-sm-inline">
+        Edit
+      </span>
+    <% end %>
+    <div>
+      <button class="btn px-3 btn-outline-secondary" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="true" data-bs-reference="parent">
+        <i class="bi bi-three-dots"></i>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end" data-popper-placement="bottom-end">
+        <li>
+          <%= button_to "Delete", dashboard_meta_prompt_path(@meta_prompt), method: :delete, class: "dropdown-item text-danger" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<dl class="row mb-3">
+  <dt class="col-sm-3">
+    SD model
+  </dt>
+  <dd class="col-sm-9">
+    <%= @meta_prompt.sd_model_name %>
+  </dd>
+
+  <dt class="col-sm-3">
+    Sampler
+  </dt>
+  <dd class="col-sm-9">
+    <%= @meta_prompt.sampler_name %>
+  </dd>
+
+  <dt class="col-sm-3">
+    Width x Height
+  </dt>
+  <dd class="col-sm-9">
+    <%= @meta_prompt.width %> x <%= @meta_prompt.height %>
+  </dd>
+
+  <dt class="col-sm-3">
+    Steps
+  </dt>
+  <dd class="col-sm-9">
+    <%- if @meta_prompt.min_steps == @meta_prompt.max_steps %>
+      <%= @meta_prompt.min_steps %>
+    <% else %>
+      <%= @meta_prompt.min_steps %> ~ <%= @meta_prompt.max_steps %>
+    <% end -%>
+  </dd>
+
+  <dt class="col-sm-3">
+    CFG scale
+  </dt>
+  <dd class="col-sm-9">
+    <%- if @meta_prompt.min_cfg_scale == @meta_prompt.max_cfg_scale %>
+      <%= @meta_prompt.min_cfg_scale %>
+    <% else %>
+      <%= @meta_prompt.min_cfg_scale %> ~ <%= @meta_prompt.max_cfg_scale %>
+    <% end -%>
+  </dd>
+
+  <%- if @meta_prompt.hires_fix? %>
+    <dt class="col-sm-3">
+      Hires. upscaler
+    </dt>
+    <dd class="col-sm-9">
+      <%= @meta_prompt.hires_fix_upscaler_name %>
+    </dd>
+
+    <dt class="col-sm-3">
+      Hires. upscale
+    </dt>
+    <dd class="col-sm-9">
+      <%= @meta_prompt.hires_fix_upscale %>
+    </dd>
+
+    <dt class="col-sm-3">
+      Hires. steps
+    </dt>
+    <dd class="col-sm-9">
+      <%- if @meta_prompt.hires_fix_min_steps == @meta_prompt.hires_fix_max_steps %>
+        <%= @meta_prompt.hires_fix_min_steps %>
+      <% else %>
+        <%= @meta_prompt.hires_fix_min_steps %> ~ <%= @meta_prompt.hires_fix_max_steps %>
+      <% end -%>
+    </dd>
+
+    <dt class="col-sm-3">
+      Hires. denoising
+    </dt>
+    <dd class="col-sm-9">
+      <%- if @meta_prompt.hires_fix_min_denoising == @meta_prompt.hires_fix_max_denoising %>
+        <%= @meta_prompt.hires_fix_min_denoising %>
+      <% else %>
+        <%= @meta_prompt.hires_fix_min_denoising %> ~ <%= @meta_prompt.hires_fix_max_denoising %>
+      <% end -%>
+    </dd>
+  <% end -%>
+</dl>
+
+<div>Add vocabulary</div>
+<%= render "inline_vocabulary_unit_form", meta_prompt: @meta_prompt, unit: MetaPromptUnits::Vocabulary.new %>
+<div>Add glossary</div>
+<%= render "inline_glossary_unit_form", meta_prompt: @meta_prompt, unit: MetaPromptUnits::Glossary.new %>
+
+<table class="table align-middle">
+  <thead>
+  <tr>
+    <th scope="col"></th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @meta_prompt_units.each do |meta_prompt_unit| %>
+    <tr>
+      <th scope="row">
+        <%= meta_prompt_unit.negative? ? "-" : "+" %>
+      </th>
+      <td>
+        <%- case meta_prompt_unit %>
+        <%- when MetaPromptUnits::Vocabulary %>
+          V: <%= meta_prompt_unit.text %>
+        <%- when MetaPromptUnits::Glossary %>
+          G: <%= meta_prompt_unit.glossary.name %> (freq. <%= meta_prompt_unit.frequency %>)
+        <%- else %>
+          INVALID
+        <% end -%>
+      </td>
+      <td>
+        <%= button_to "Delete", dashboard_meta_prompt_unit_path(@meta_prompt, meta_prompt_unit), method: :delete, class: "btn btn-outline-danger btn-sm" %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

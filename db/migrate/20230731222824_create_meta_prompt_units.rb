@@ -1,7 +1,7 @@
-class CreatePromptElements < ActiveRecord::Migration[7.1]
+class CreateMetaPromptUnits < ActiveRecord::Migration[7.1]
   def change
-    create_table :prompt_elements do |t|
-      t.references :prompting_plan, null: false, foreign_key: true
+    create_table :meta_prompt_units do |t|
+      t.references :meta_prompt, null: false, foreign_key: true
       t.boolean :negative, null: false, default: false
       t.integer :order
 

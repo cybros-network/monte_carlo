@@ -12,9 +12,9 @@
 
 ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
   create_table "glossaries", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.string "description"
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_glossaries_on_user_id"
@@ -29,8 +29,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
     t.index ["user_id"], name: "index_identities_on_user_id"
   end
 
-  create_table "prompt_elements", force: :cascade do |t|
-    t.integer "prompting_plan_id", null: false
+  create_table "meta_prompt_units", force: :cascade do |t|
+    t.integer "meta_prompt_id", null: false
     t.boolean "negative", default: false, null: false
     t.integer "order"
     t.string "text"
@@ -39,11 +39,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
     t.string "type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["glossary_id"], name: "index_prompt_elements_on_glossary_id"
-    t.index ["prompting_plan_id"], name: "index_prompt_elements_on_prompting_plan_id"
+    t.index ["glossary_id"], name: "index_meta_prompt_units_on_glossary_id"
+    t.index ["meta_prompt_id"], name: "index_meta_prompt_units_on_meta_prompt_id"
   end
 
-  create_table "prompting_plans", force: :cascade do |t|
+  create_table "meta_prompts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "name", null: false
     t.string "sd_model_name", null: false
@@ -62,16 +62,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
     t.integer "hires_fix_max_steps"
     t.float "hires_fix_min_denoising"
     t.float "hires_fix_max_denoising"
-    t.integer "positive_prompt_elements_count", default: 0, null: false
-    t.integer "negative_prompt_elements_count", default: 0, null: false
+    t.integer "positive_units_count", default: 0, null: false
+    t.integer "negative_units_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_prompting_plans_on_user_id"
+    t.index ["user_id"], name: "index_meta_prompts_on_user_id"
   end
 
-  create_table "prompting_tasks", force: :cascade do |t|
+  create_table "prompt_tasks", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "prompting_plan_id"
+    t.integer "meta_prompt_id"
     t.text "positive_prompt", null: false
     t.text "negative_prompt"
     t.string "sd_model_name", null: false
@@ -100,8 +100,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["prompting_plan_id"], name: "index_prompting_tasks_on_prompting_plan_id"
-    t.index ["user_id"], name: "index_prompting_tasks_on_user_id"
+    t.index ["meta_prompt_id"], name: "index_prompt_tasks_on_meta_prompt_id"
+    t.index ["user_id"], name: "index_prompt_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -149,10 +149,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
 
   add_foreign_key "glossaries", "users"
   add_foreign_key "identities", "users"
-  add_foreign_key "prompt_elements", "glossaries"
-  add_foreign_key "prompt_elements", "prompting_plans"
-  add_foreign_key "prompting_plans", "users"
-  add_foreign_key "prompting_tasks", "prompting_plans"
-  add_foreign_key "prompting_tasks", "users"
+  add_foreign_key "meta_prompt_units", "glossaries"
+  add_foreign_key "meta_prompt_units", "meta_prompts"
+  add_foreign_key "meta_prompts", "users"
+  add_foreign_key "prompt_tasks", "meta_prompts"
+  add_foreign_key "prompt_tasks", "users"
   add_foreign_key "vocabularies", "glossaries"
 end

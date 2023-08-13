@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-class PromptingPlan < ApplicationRecord
+class MetaPrompt < ApplicationRecord
   belongs_to :user
 
-  has_many :prompt_elements, dependent: :delete_all
-  # accepts_nested_attributes_for :prompt_elements
+  has_many :units, class_name: "MetaPromptUnit", dependent: :delete_all
+  # accepts_nested_attributes_for :units
 
-  has_many :prompting_tasks, dependent: :nullify
+  has_many :prompt_tasks, dependent: :nullify
 
   validates :name,
             presence: true,
@@ -177,7 +177,7 @@ class PromptingPlan < ApplicationRecord
   after_initialize do |record|
     next unless record.new_record?
 
-    record.name ||= "Untitled plan"
+    record.name ||= "Untitled"
     record.sd_model_name ||= Constants::SUPPORTED_SD_MODEL_NAMES.first
     record.sampler_name ||= Constants::SUPPORTED_SAMPLER_NAMES.first
     record.width ||= 512
@@ -195,22 +195,22 @@ class PromptingPlan < ApplicationRecord
     record.hires_fix_max_denoising ||= 0.7
   end
 
-  def build_prompting_task
+  def build_prompt_task
     round_to = -> (b, v) {
       (b / v).round * v
     }
 
     positive_prompts = []
     negative_prompts = []
-    prompt_elements.includes(glossary: :vocabularies).sort_by(&:order).reverse_each do |elem|
+    units.includes(glossary: :vocabularies).sort_by(&:order).reverse_each do |elem|
       case elem
-      when VocabularyPromptElement
+      when MetaPromptUnits::Vocabulary
         if elem.negative?
           negative_prompts << elem.text
         else
           positive_prompts << elem.text
         end
-      when GlossaryPromptElement
+      when MetaPromptUnits::Glossary
         elem.glossary.vocabularies.sample(elem.frequency).each do |vocabulary|
           if elem.negative?
             negative_prompts << vocabulary.text
@@ -223,7 +223,7 @@ class PromptingPlan < ApplicationRecord
       end
     end
 
-    prompting_tasks.build(
+    prompt_tasks.build(
       positive_prompt: positive_prompts.join(","),
       negative_prompt: negative_prompts.join(","),
       sd_model_name: sd_model_name,

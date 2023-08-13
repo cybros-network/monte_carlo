@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class PromptingTask < ApplicationRecord
-  belongs_to :prompting_plan, optional: true
+class PromptTask < ApplicationRecord
+  belongs_to :meta_prompt, optional: true
   belongs_to :user
 
   enum :status, {

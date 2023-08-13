@@ -1,5 +1,5 @@
-<%- back_path ||= dashboard_prompting_plans_path -%>
-<%= form_with(model: [:dashboard, prompting_plan], local: true) do |f| %>
+<%- back_path ||= dashboard_meta_prompts_path -%>
+<%= form_with(model: [:dashboard, meta_prompt], local: true) do |f| %>
   <div class="mb-3">
     <%= f.label :name %>
     <%= f.text_field :name, required: "required", class: "form-control", class_for_error: "is-invalid" %>

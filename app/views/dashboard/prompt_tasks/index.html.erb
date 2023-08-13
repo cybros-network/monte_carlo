@@ -3,7 +3,7 @@
     <h2 class="mb-0">Prompting plans</h2>
   </div>
   <div class="col-12 col-md-auto d-flex">
-    <%= link_to new_dashboard_prompting_task_path, class: "btn btn-outline-primary px-3 px-sm-5 me-2" do %>
+    <%= link_to new_dashboard_prompt_task_path, class: "btn btn-outline-primary px-3 px-sm-5 me-2" do %>
       <span class="d-none d-sm-inline">
         New
       </span>
@@ -21,7 +21,7 @@
   </tr>
   </thead>
   <tbody>
-  <% @prompting_tasks.each do |task| %>
+  <% @prompt_tasks.each do |task| %>
     <tr>
       <th scope="row">
         <%= task.id %>
@@ -33,11 +33,11 @@
         <%= task.status %>
       </td>
       <td>
-        <%= link_to "Show", dashboard_prompting_task_path(task) %>
+        <%= link_to "Show", dashboard_prompt_task_path(task) %>
       </td>
     </tr>
   <% end %>
   </tbody>
 </table>
 
-<%= paginate @prompting_tasks %>
+<%= paginate @prompt_tasks %>

@@ -1,6 +1,6 @@
-class CreatePromptingPlans < ActiveRecord::Migration[7.1]
+class CreateMetaPrompts < ActiveRecord::Migration[7.1]
   def change
-    create_table :prompting_plans do |t|
+    create_table :meta_prompts do |t|
       t.references :user, null: false, foreign_key: true
 
       t.string :name, null: false
@@ -21,8 +21,8 @@ class CreatePromptingPlans < ActiveRecord::Migration[7.1]
       t.float :hires_fix_min_denoising
       t.float :hires_fix_max_denoising
 
-      t.integer :positive_prompt_elements_count, null: false, default: 0
-      t.integer :negative_prompt_elements_count, null: false, default: 0
+      t.integer :positive_units_count, null: false, default: 0
+      t.integer :negative_units_count, null: false, default: 0
 
       t.timestamps
     end

@@ -5,7 +5,7 @@ class Glossary < ApplicationRecord
 
   has_many :vocabularies, dependent: :delete_all
 
-  has_one :prompting_plan, dependent: :delete
+  has_one :meta_prompt, dependent: :delete
 
   validates :name,
             presence: true,
