@@ -223,6 +223,8 @@ class MetaPrompt < ApplicationRecord
       end
     end
 
+    # TODO: quote prompts
+
     prompt_tasks.build(
       positive_prompt: positive_prompts.join(","),
       negative_prompt: negative_prompts.join(","),

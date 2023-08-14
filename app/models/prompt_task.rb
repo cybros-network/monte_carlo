@@ -5,12 +5,14 @@ class PromptTask < ApplicationRecord
   belongs_to :user
 
   enum :status, {
+    # drafting: "drafting",
     pending: "pending",
     submitting: "submitting",
     submitted: "submitted",
     processing: "processing",
     processed: "processed",
-    discarded: "discarded"
+    discarded: "discarded",
+    errored: "errored"
   }
 
   validates :positive_prompt,
@@ -133,28 +135,28 @@ class PromptTask < ApplicationRecord
     return false unless pending?
 
     self.unique_track_id = id + Settings.unique_track_id_base.to_i
-    self.frozen_prompt = "\"#{positive_prompt}\""
+    self.frozen_prompt = positive_prompt
     if negative_prompt.present?
-      self.frozen_prompt += " --neg \"#{negative_prompt}\""
+      self.frozen_prompt += " --neg #{negative_prompt}"
     end
-    self.frozen_prompt += " --model \"#{sd_model_name}\""
-    self.frozen_prompt += " --sampler \"#{sampler_name}\""
-    self.frozen_prompt += " --width \"#{width}\""
-    self.frozen_prompt += " --height \"#{height}\""
-    self.frozen_prompt += " --seed \"#{seed}"
-    self.frozen_prompt += " --steps \"#{steps}\""
-    self.frozen_prompt += " --cfg \"#{cfg_scale}\""
+    self.frozen_prompt += " --model #{sd_model_name}"
+    self.frozen_prompt += " --sampler #{sampler_name}"
+    self.frozen_prompt += " --width #{width}"
+    self.frozen_prompt += " --height #{height}"
+    self.frozen_prompt += " --seed #{seed}"
+    self.frozen_prompt += " --steps #{steps}"
+    self.frozen_prompt += " --cfg #{cfg_scale}"
     if hires_fix?
-      self.frozen_prompt += " --upscaler \"#{hires_fix_upscaler_name}\""
-      self.frozen_prompt += " --upscale \"#{hires_fix_upscale}\""
-      self.frozen_prompt += " --upscale-steps \"#{hires_fix_steps}\""
-      self.frozen_prompt += " --upscale-denoising \"#{hires_fix_denoising}\""
+      self.frozen_prompt += " --upscaler #{hires_fix_upscaler_name}"
+      self.frozen_prompt += " --upscale #{hires_fix_upscale}"
+      self.frozen_prompt += " --upscale-steps #{hires_fix_steps}"
+      self.frozen_prompt += " --upscale-denoising #{hires_fix_denoising}"
     end
-
-    # TODO: AJ for submit the task to chain
 
     self.status = :submitting
     self.submitting_at = Time.zone.now
     save!
+
+    SubmitPromptTaskJob.perform_later(id)
   end
 end

@@ -4,3 +4,7 @@ seo_meta:
   keywords: ["Stable Diffusion", "AIGC", "NFT factory"]
 
 unique_track_id_base: 0
+
+scripts:
+  deno_command: "deno"
+  submit_task_script_name: "submit_task.ts"

@@ -45,6 +45,10 @@
 /config/credentials/*
 !/config/credentials/.keep
 
+.env*
+!.env.example
+!.env.defaults
+
 /db/*.sqlite3
 
 /config/credentials/production.key

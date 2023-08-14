@@ -5,5 +5,7 @@ module MetaPromptUnits
     validates :text,
               presence: true,
               allow_blank: false
+
+    # TODO: forbidden words, like unsupported LoRa
   end
 end

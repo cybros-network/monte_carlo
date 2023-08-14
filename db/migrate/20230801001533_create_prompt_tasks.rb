@@ -36,6 +36,7 @@ class CreatePromptTasks < ActiveRecord::Migration[7.1]
       t.datetime :processing_at
       t.datetime :processed_at
       t.datetime :discarded_at
+      t.datetime :errored_at
 
       t.timestamps
     end

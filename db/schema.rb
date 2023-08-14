@@ -98,6 +98,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
     t.datetime "processing_at"
     t.datetime "processed_at"
     t.datetime "discarded_at"
+    t.datetime "errored_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["meta_prompt_id"], name: "index_prompt_tasks_on_meta_prompt_id"

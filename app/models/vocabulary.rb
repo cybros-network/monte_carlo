@@ -11,4 +11,6 @@ class Vocabulary < ApplicationRecord
             allow_blank: false
   validates :glossary_id,
             presence: true
+
+  # TODO: forbidden words, like unsupported LoRa
 end
