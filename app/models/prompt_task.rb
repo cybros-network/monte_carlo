@@ -15,6 +15,13 @@ class PromptTask < ApplicationRecord
     errored: "errored"
   }
 
+  enum :result, {
+    success: "success",
+    fail: "fail",
+    error: "error",
+    panic: "panic"
+  }
+
   validates :positive_prompt,
             presence: true,
             allow_blank: false
@@ -124,6 +131,12 @@ class PromptTask < ApplicationRecord
             inclusion: {
               in: self.statuses.values
             }
+
+  validates :result,
+            inclusion: {
+              in: self.results.values
+            },
+            allow_blank: true
 
   after_initialize do |record|
     next unless record.new_record?

@@ -17,6 +17,7 @@
     <th scope="col">#</th>
     <th scope="col">Prompt</th>
     <th scope="col">Status</th>
+    <th scope="col">Preview</th>
     <th scope="col"></th>
   </tr>
   </thead>
@@ -31,6 +32,11 @@
       </td>
       <td>
         <%= task.status %>
+      </td>
+      <td>
+        <%- if task.generated_image_url.present? %>
+          <%= image_tag task.generated_image_url, size: "256x256" %>
+        <% end %>
       </td>
       <td>
         <%= link_to "Show", dashboard_prompt_task_path(task) %>

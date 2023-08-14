@@ -85,6 +85,23 @@
         <%= time_tag @prompt_task.discarded_at %>
       </dd>
     <% end -%>
+
+    <%- if @prompt_task.generated_metadata_url.present? %>
+      <dt class="col-sm-3">
+        Metadata
+      </dt>
+      <dd class="col-sm-9">
+        <%= link_to @prompt_task.generated_metadata_url, @prompt_task.generated_metadata_url, target: "_blank" %>
+      </dd>
+    <% end %>
+    <%- if @prompt_task.generated_image_url.present? %>
+      <dt class="col-sm-3">
+        Image
+      </dt>
+      <dd class="col-sm-9">
+        <%= image_tag @prompt_task.generated_image_url %>
+      </dd>
+    <% end %>
   <% end -%>
 </dl>
 

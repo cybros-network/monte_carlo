@@ -29,6 +29,7 @@ class CreatePromptTasks < ActiveRecord::Migration[7.1]
 
       t.string :result
       t.text :raw_output
+      t.text :generated_metadata_url
       t.text :generated_image_url
 
       t.datetime :submitting_at

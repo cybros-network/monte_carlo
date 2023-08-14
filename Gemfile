@@ -54,7 +54,8 @@ gem "devise_invitable"
 gem "omniauth-rails_csrf_protection"
 gem "omniauth-siwe", github: "spruceid/omniauth-siwe", branch: "main"
 
-# gem "default_value_for"
+gem "graphql-client", require: false
+gem "dotenv-rails", require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
