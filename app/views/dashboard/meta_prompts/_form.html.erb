@@ -8,7 +8,7 @@
 
   <div class="mb-3">
     <%= f.label :sd_model_name %>
-    <%= f.select :sd_model_name, Constants::SUPPORTED_SD_MODEL_NAMES, { include_blank: false }, class: "form-select", class_for_error: "is-invalid" %>
+    <%= f.select :sd_model_name, Constants::SUPPORTED_SD_MODELS_FOR_SELECT, { include_blank: false }, class: "form-select", class_for_error: "is-invalid" %>
     <%= f.error_message :sd_model_name, class: "invalid-feedback" %>
   </div>
 

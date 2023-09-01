@@ -8,3 +8,179 @@ unique_track_id_base: 0
 scripts:
   deno_command: "deno"
   submit_task_script_name: "submit_task.ts"
+
+stable_diffusion:
+  models:
+    - id: "absolutereality_v181"
+      enabled: true
+      title: "AbsoluteReality"
+      description: ""
+      tags: [ ]
+      category: [ ]
+      link: "https://civitai.com/models/81458/absolutereality"
+      author: "https://civitai.com/user/Lykon/models"
+    - id: "aiceKawaice_channel"
+      enabled: true
+      title: "KawAICE"
+      description: ""
+      tags: [ ]
+      category: [ ]
+      link: "https://civitai.com/models/51057/aice-or-kawaice"
+      author: "https://civitai.com/user/Yuno779"
+    - id: "anyloraCheckpoint_bakedvaeBlessedFp16"
+      enabled: true
+      title: "AnyLoRA"
+      description: ""
+      tags: [ ]
+      category: [ ]
+      link: "https://civitai.com/models/23900?modelVersionId=95489"
+      author: "https://civitai.com/user/Lykon/models"
+    - id: "anythingelseV4_v45"
+      enabled: true
+      title: "AnythingElse V4"
+      description: ""
+      tags: [ ]
+      category: [ ]
+      link: "https://civitai.com/models/4855/anythingelse-v4"
+      author: ""
+    - id: "AnythingV5Ink_v5PrtRE"
+      enabled: true
+      title: "Anything V5"
+      description: ""
+      tags: [ ]
+      category: [ ]
+      link: "https://civitai.com/models/9409?modelVersionId=30163"
+      author: "https://civitai.com/user/Yuno779"
+    - id: "caramelapple_v12"
+      enabled: true
+      title: "CaramelApple"
+      description: ""
+      tags: [ ]
+      category: [ ]
+      link: "https://civitai.com/models/98237/caramelapple"
+      author: "https://civitai.com/user/Kybalico"
+    - id: "cbdmix_65"
+      enabled: true
+      title: "CBDMix"
+      description: ""
+      tags: [ ]
+      category: [ ]
+      link: "https://civitai.com/models/75915/cbdmix"
+      author: "https://civitai.com/user/ThePioneer"
+    - id: "cuddlehoney_v10"
+      enabled: true
+      title: "CuddleHoney"
+      description: ""
+      tags: [ ]
+      category: [ ]
+      link: "https://civitai.com/models/107514/cuddlehoney"
+      author: "https://civitai.com/user/Kybalico"
+    - id: "cutecore_v10"
+      enabled: true
+      title: "CuteCore"
+      description: ""
+      tags: [ ]
+      category: [ ]
+      link: "https://civitai.com/models/129282/cutecore"
+      author: "https://civitai.com/user/Miyuutsu"
+    - id: "dreamshaper_8"
+      enabled: true
+      title: "DreamShaper"
+      description: ""
+      tags: [ ]
+      category: [ ]
+      link: "https://civitai.com/models/4384?modelVersionId=128713"
+      author: "https://civitai.com/user/Lykon/models"
+    - id: "gostlyCute_v10"
+      enabled: true
+      title: "Gostly Cute"
+      description: ""
+      tags: [ ]
+      category: [ ]
+      link: "https://civitai.com/models/127635/gostly-cute"
+      author: "https://civitai.com/user/GeneralGost"
+    - id: "inkPrt_prt"
+      enabled: true
+      title: "ink-Prt"
+      description: ""
+      tags: [ ]
+      category: [ ]
+      link: "https://civitai.com/models/108882/ink-prt"
+      author: "https://civitai.com/user/Yuno779"
+    - id: "neverendingDreamNED_v122BakedVae"
+      enabled: true
+      title: "NeverEnding Dream (NED)"
+      description: ""
+      tags: [ ]
+      category: [ ]
+      link: "https://civitai.com/models/10028/neverending-dream-ned"
+      author: "https://civitai.com/user/Lykon/models"
+  loras:
+    - id: "vae-ft-mse-840000-ema-pruned"
+      enabled: true
+      title: "Detail Tweaker"
+      description: ""
+      tags: [ ]
+      category: [ ]
+      link: "https://civitai.com/models/58390?modelVersionId=62833"
+      author: "https://civitai.com/user/CyberAIchemist"
+    - id: "vae-ft-mse-840000-ema-pruned"
+      enabled: true
+      title: "Gloss Tweaker V1"
+      description: ""
+      tags: [ ]
+      category: [ ]
+      link: "https://civitai.com/models/116404?modelVersionId=126042"
+      author: "https://civitai.com/user/youkengi"
+    - id: "vae-ft-mse-840000-ema-pruned"
+      enabled: true
+      title: "Gloss Tweaker V2"
+      description: ""
+      tags: [ ]
+      category: [ ]
+      link: "https://civitai.com/models/116404/glosstweaker"
+      author: "https://civitai.com/user/youkengi"
+
+  samplers:
+    - UniPC
+    - DDIM
+    - PLMS
+    - Euler a
+#    - Euler
+#    - DPM++ 2S a
+#    - DPM++ 2S a Karras
+#    - DPM++ 2M
+    - DPM++ 2M Karras
+#    - DPM++ SDE
+    - DPM++ 2M SDE
+    - DPM++ 2M SDE Karras
+#    - DPM++ 3M SDE
+#    - DPM++ 3M SDE Karras
+#    - DPM fast
+#    - DPM adaptive
+#    - DPM2
+    - DPM2 Karras
+#    - DPM2 a
+#    - DPM2 a Karras
+#    - LMS
+#    - LMS Karras
+#    - Heun
+
+  upscalers:
+    - None
+#    - Latent
+#    - Latent (antialiased)
+#    - Latent (bicubic)
+#    - Latent (bicubic antialiased)
+#    - Latent (nearest)
+#    - Latent (nearest-exact)
+    - Lanczos
+    - Nearest
+    - ESRGAN_4x
+    - LDSR
+    - R-ESRGAN 4x+
+    - R-ESRGAN 4x+ Anime6B
+    - ScuNET GAN
+    - ScuNET PSNR
+    - SwinIR 4x
+
