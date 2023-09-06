@@ -19,12 +19,13 @@ class SubmitPromptTaskJob < ApplicationJob
       force_path_style: true
     )
 
+    uuid = SecureRandom.uuid
     signer = Aws::S3::Presigner.new(client: client)
 
     image_upload_url = signer.presigned_url(
       :put_object,
       bucket: Settings.task_forwarder.s3_bucket,
-      key: "#{SecureRandom.uuid}.png",
+      key: "#{uuid}.png",
       expires_in: 3.days.to_i,
       secure: Settings.task_forwarder.s3_use_ssl
     )
@@ -35,7 +36,7 @@ class SubmitPromptTaskJob < ApplicationJob
     proof_upload_url = signer.presigned_url(
       :put_object,
       bucket: Settings.task_forwarder.s3_bucket,
-      key: "#{SecureRandom.uuid}.json",
+      key: "#{uuid}.json",
       expires_in: 3.days.to_i,
       secure: Settings.task_forwarder.s3_use_ssl
     )
