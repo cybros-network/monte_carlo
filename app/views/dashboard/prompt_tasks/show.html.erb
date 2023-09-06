@@ -38,13 +38,6 @@
   </dd>
 
   <%- unless @prompt_task.pending? %>
-    <dt class="col-sm-3">
-      Prompt
-    </dt>
-    <dd class="col-sm-9">
-      <%= @prompt_task.frozen_prompt %>
-    </dd>
-
     <%- if @prompt_task.submitting_at.present? %>
       <dt class="col-sm-3">
         Submitting at
@@ -86,12 +79,12 @@
       </dd>
     <% end -%>
 
-    <%- if @prompt_task.generated_metadata_url.present? %>
+    <%- if @prompt_task.generated_proof_url.present? %>
       <dt class="col-sm-3">
         Metadata
       </dt>
       <dd class="col-sm-9">
-        <%= link_to @prompt_task.generated_metadata_url, @prompt_task.generated_metadata_url, target: "_blank" %>
+        <%= link_to @prompt_task.generated_proof_url, @prompt_task.generated_proof_url, target: "_blank" %>
       </dd>
     <% end %>
     <%- if @prompt_task.generated_image_url.present? %>

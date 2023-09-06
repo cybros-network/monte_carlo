@@ -3,11 +3,15 @@ seo_meta:
   description: Generate images in Monte Carlo's way!
   keywords: ["Stable Diffusion", "AIGC", "NFT factory"]
 
-unique_track_id_base: 0
-
-scripts:
-  deno_command: "deno"
-  submit_task_script_name: "submit_task.ts"
+task_forwarder:
+  endpoint: "http://127.0.0.1:8080"
+  unique_track_id_base: 0
+  s3_endpoint: ""
+  s3_region: "us-east-1"
+  s3_access_key_id: ""
+  s3_secret_access_key: ""
+  s3_use_ssl: false
+  s3_bucket: ""
 
 stable_diffusion:
   models:

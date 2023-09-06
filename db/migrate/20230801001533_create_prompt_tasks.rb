@@ -23,13 +23,11 @@ class CreatePromptTasks < ActiveRecord::Migration[7.1]
       t.string :status, null: false
 
       t.integer :unique_track_id
-      t.text :frozen_prompt
-
       t.text :transaction_id
 
       t.string :result
       t.text :raw_output
-      t.text :generated_metadata_url
+      t.text :generated_proof_url
       t.text :generated_image_url
 
       t.datetime :submitting_at

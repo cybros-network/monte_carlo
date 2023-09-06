@@ -83,7 +83,7 @@ def run
         task.result = :success
         task.raw_output = record.output
         task.generated_image_url = parsed_data.fetch("imageUrl")
-        task.generated_metadata_url = parsed_data.fetch("metadataUrl")
+        task.generated_proof_url = parsed_data.fetch("proofUrl")
       when "Fail"
         task.status = :processed
         task.processing_at = Time.parse(event.block_time)

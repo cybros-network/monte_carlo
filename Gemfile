@@ -57,6 +57,9 @@ gem "omniauth-siwe", github: "spruceid/omniauth-siwe", branch: "main"
 gem "graphql-client", require: false
 gem "dotenv-rails", require: false
 
+gem "faraday"
+gem "aws-sdk-s3"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri windows]
