@@ -156,6 +156,7 @@ stable_diffusion:
 #    - DPM++ 2M
     - DPM++ 2M Karras
 #    - DPM++ SDE
+#    - DPM++ SDE Karras
     - DPM++ 2M SDE
     - DPM++ 2M SDE Karras
 #    - DPM++ 3M SDE
@@ -184,6 +185,7 @@ stable_diffusion:
     - LDSR
     - R-ESRGAN 4x+
     - R-ESRGAN 4x+ Anime6B
+    - 8x_NMKD-Superscale_150000_G
     - ScuNET GAN
     - ScuNET PSNR
     - SwinIR 4x

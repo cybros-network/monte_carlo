@@ -87,6 +87,15 @@ class PromptTask < ApplicationRecord
             },
             allow_blank: false
 
+  validates :clip_skip,
+            presence: true,
+            numericality: {
+              only_integer: true,
+              greater_than_or_equal_to: Constants::CLIP_SKIP_RANGE.begin,
+              less_than_or_equal_to: Constants::CLIP_SKIP_RANGE.end,
+            },
+            allow_blank: false
+
   validates :hires_fix_upscaler_name,
             presence: true,
             inclusion: {

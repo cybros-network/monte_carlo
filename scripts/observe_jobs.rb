@@ -30,7 +30,7 @@ Schema = GraphQL::Client.load_schema(HTTP)
 
 Client = GraphQL::Client.new(schema: Schema, execute: HTTP)
 
-FindJobQuery = Client.parse <<-'GRAPHQL'
+FindJobQuery = Client.parse <<-GRAPHQL
   query($pid: Int, $uid: Int) {
     jobs(where: {poolId_eq: $pid, uniqueTrackId_eq: $uid}, orderBy: jobId_DESC) {
       jobId

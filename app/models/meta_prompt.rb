@@ -101,6 +101,29 @@ class MetaPrompt < ApplicationRecord
     end
   end
 
+  validates :min_clip_skip,
+            presence: true,
+            numericality: {
+              only_integer: true,
+              greater_than_or_equal_to: Constants::CLIP_SKIP_RANGE.begin,
+              less_than_or_equal_to: Constants::CLIP_SKIP_RANGE.end
+            },
+            allow_blank: false
+
+  validates :max_clip_skip,
+            presence: true,
+            numericality: {
+              only_integer: true,
+              greater_than_or_equal_to: Constants::CLIP_SKIP_RANGE.begin,
+              less_than_or_equal_to: Constants::CLIP_SKIP_RANGE.end
+            },
+            allow_blank: false
+  validate do |record|
+    if record.max_clip_skip < record.min_clip_skip
+      record.errors.add :max_clip_skip, :greater_than_or_equal_to, record.min_clip_skip
+    end
+  end
+
   validates :hires_fix_upscaler_name,
             presence: true,
             inclusion: {
@@ -186,6 +209,8 @@ class MetaPrompt < ApplicationRecord
     record.max_steps ||= 25
     record.min_cfg_scale ||= 7
     record.max_cfg_scale ||= 7
+    record.min_clip_skip ||= 1
+    record.max_clip_skip ||= 2
     record.hires_fix ||= false
     record.hires_fix_upscaler_name ||= Constants::SUPPORTED_HIRES_UPSCALER_NAMES.first
     record.hires_fix_upscale ||= 2
@@ -226,20 +251,21 @@ class MetaPrompt < ApplicationRecord
     # TODO: quote prompts
 
     prompt_tasks.build(
-      positive_prompt: positive_prompts.join(","),
-      negative_prompt: negative_prompts.join(","),
+      positive_prompt: positive_prompts.join(", "),
+      negative_prompt: negative_prompts.join(", "),
       sd_model_name: sd_model_name,
       sampler_name: sampler_name,
       width: width,
       height: height,
       seed: fixed_seed.present? ? fixed_seed : rand(Constants::RANDOM_SEED_RANGE),
       steps: rand(min_steps..max_steps),
-      cfg_scale: round_to.call(rand(min_cfg_scale..max_cfg_scale), 0.5),
+      cfg_scale: round_to.call(rand(min_cfg_scale..max_cfg_scale), 0.5).truncate(1),
+      clip_skip: rand(min_clip_skip..max_clip_skip),
       hires_fix: hires_fix,
       hires_fix_upscaler_name: hires_fix_upscaler_name,
-      hires_fix_upscale: round_to.call(hires_fix_upscale, 0.05),
+      hires_fix_upscale: round_to.call(hires_fix_upscale, 0.05).truncate(2),
       hires_fix_steps: rand(hires_fix_min_steps..hires_fix_max_steps),
-      hires_fix_denoising: rand(hires_fix_min_denoising..hires_fix_max_denoising).round(2)
+      hires_fix_denoising: rand(hires_fix_min_denoising..hires_fix_max_denoising).truncate(2)
     )
   end
 end

@@ -13,6 +13,8 @@ class CreateMetaPrompts < ActiveRecord::Migration[7.1]
       t.integer :max_steps, null: false
       t.float :min_cfg_scale, null: false
       t.float :max_cfg_scale, null: false
+      t.integer :min_clip_skip, null: false
+      t.integer :max_clip_skip, null: false
       t.boolean :hires_fix, null: false
       t.string :hires_fix_upscaler_name
       t.float :hires_fix_upscale

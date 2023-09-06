@@ -2,12 +2,42 @@
 
 module Dashboard
   class PromptTasksController < Dashboard::ApplicationController
-    before_action :set_prompt_task, except: %i[index new create]
-    before_action :ensure_owner!, except: %i[index new create]
-    before_action :frozen_after_submitted!, except: %i[index new create show]
+    before_action :set_prompt_task, except: %i[index new create batch_create]
+    before_action :ensure_owner!, except: %i[index new create batch_create]
+    before_action :frozen_after_submitted!, except: %i[index new create batch_create show]
 
     def index
-      @prompt_tasks = PromptTask.where(user: current_user).page(params[:page]).per(params[:per_page] || 50)
+      @prompt_tasks = PromptTask.where(user: current_user).order(id: :desc).page(params[:page]).per(params[:per_page] || 50)
+    end
+
+    def batch_create
+      meta_prompt =
+        if params[:meta_prompt_id].present?
+          MetaPrompt.where(user: current_user).where(id: params[:meta_prompt_id]).first
+        end
+      unless meta_prompt
+        flash[:notice] = "Meta prompt not found."
+        redirect_back_or_to dashboard_prompt_tasks_url
+        return
+      end
+
+      created_prompt_tasks = []
+      batch_size = params[:batch_size].to_i || 4
+      batch_size.times do
+        prompt_task = meta_prompt.build_prompt_task
+        prompt_task.user = current_user
+
+        if prompt_task.save
+          created_prompt_tasks << prompt_task
+        end
+      end
+
+      if params[:auto_submit]
+        created_prompt_tasks.each(&:submit!)
+      end
+
+      flash[:notice] = "Batch created #{created_prompt_tasks.size} tasks"
+      redirect_to dashboard_prompt_tasks_url
     end
 
     def new

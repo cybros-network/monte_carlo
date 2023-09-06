@@ -80,7 +80,7 @@ class SubmitPromptTaskJob < ApplicationJob
         nil
       end
 
-    if response.nil? || response[:status] != 200
+    if response&.status != 200
       task.status = :errored
       task.errored_at = Time.zone.now
       task.save validate: false

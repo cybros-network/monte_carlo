@@ -27,26 +27,32 @@
   <div class="row mb-3">
     <div class="col">
       <%= f.label :width %>
-      <%= f.number_field :width, required: "required", class: "form-control", class_for_error: "is-invalid" %>
+      <%= f.number_field :width, step: 1, min: Constants::WIDTH_RANGE.begin, max: Constants::WIDTH_RANGE.end, required: "required", class: "form-control", class_for_error: "is-invalid" %>
       <%= f.error_message :width, class: "invalid-feedback" %>
     </div>
     <div class="col">
       <%= f.label :height %>
-      <%= f.number_field :height, required: "required", class: "form-control", class_for_error: "is-invalid" %>
+      <%= f.number_field :height, step: 1, min: Constants::HEIGHT_RANGE.begin, max: Constants::HEIGHT_RANGE.end, required: "required", class: "form-control", class_for_error: "is-invalid" %>
       <%= f.error_message :height, class: "invalid-feedback" %>
     </div>
   </div>
 
   <div class="mb-3">
     <%= f.label :steps %>
-    <%= f.number_field :steps, required: "required", class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.number_field :steps, step: 1, min: Constants::STEP_RANGE.begin, max: Constants::STEP_RANGE.end, required: "required", class: "form-control", class_for_error: "is-invalid" %>
     <%= f.error_message :steps, class: "invalid-feedback" %>
   </div>
 
   <div class="mb-3">
     <%= f.label :cfg_scale %>
-    <%= f.number_field :cfg_scale, required: "required", class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.number_field :cfg_scale, step: 0.1, min: Constants::CFG_SCALE_RANGE.begin, max: Constants::CFG_SCALE_RANGE.end, required: "required", class: "form-control", class_for_error: "is-invalid" %>
     <%= f.error_message :cfg_scale, class: "invalid-feedback" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :clip_skip %>
+    <%= f.number_field :clip_skip, step: 1, min: Constants::CLIP_SKIP_RANGE.begin, max: Constants::CLIP_SKIP_RANGE.end, required: "required", class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :clip_skip, class: "invalid-feedback" %>
   </div>
 
   <div class="mb-3">
@@ -64,19 +70,19 @@
 
   <div class="mb-3">
     <%= f.label :hires_fix_upscale %>
-    <%= f.number_field :hires_fix_upscale, class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.number_field :hires_fix_upscale, step: 0.01, min: Constants::HIRES_FIX_UPSCALE_RANGE.begin, max: Constants::HIRES_FIX_UPSCALE_RANGE.end, class: "form-control", class_for_error: "is-invalid" %>
     <%= f.error_message :hires_fix_upscale, class: "invalid-feedback" %>
   </div>
 
   <div class="mb-3">
     <%= f.label :hires_fix_steps %>
-    <%= f.number_field :hires_fix_steps, class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.number_field :hires_fix_steps, step: 1, min: Constants::HIRES_FIX_STEPS_RANGE.begin, max: Constants::HIRES_FIX_STEPS_RANGE.end, class: "form-control", class_for_error: "is-invalid" %>
     <%= f.error_message :hires_fix_steps, class: "invalid-feedback" %>
   </div>
 
   <div class="mb-3">
     <%= f.label :hires_fix_denoising %>
-    <%= f.number_field :hires_fix_denoising, class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.number_field :hires_fix_denoising, step: 0.01, min: Constants::HIRES_FIX_DENOISING_RANGE.begin, max: Constants::HIRES_FIX_DENOISING_RANGE.end, class: "form-control", class_for_error: "is-invalid" %>
     <%= f.error_message :hires_fix_denoising, class: "invalid-feedback" %>
   </div>
 

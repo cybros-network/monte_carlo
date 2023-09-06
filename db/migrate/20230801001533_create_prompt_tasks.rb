@@ -14,6 +14,7 @@ class CreatePromptTasks < ActiveRecord::Migration[7.1]
       t.integer :seed, null: false
       t.integer :steps, null: false
       t.float :cfg_scale, null: false
+      t.integer :clip_skip, null: false
       t.boolean :hires_fix, null: false
       t.string :hires_fix_upscaler_name
       t.float :hires_fix_upscale

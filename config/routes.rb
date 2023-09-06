@@ -23,6 +23,10 @@ Rails.application.routes.draw do
     end
 
     resources :prompt_tasks do
+      collection do
+        post "batch", action: "batch_create"
+      end
+
       member do
         patch "submit"
       end

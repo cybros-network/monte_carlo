@@ -137,6 +137,13 @@
   </dd>
 
   <dt class="col-sm-3">
+    Seed
+  </dt>
+  <dd class="col-sm-9">
+    <%= @prompt_task.seed %>
+  </dd>
+
+  <dt class="col-sm-3">
     Steps
   </dt>
   <dd class="col-sm-9">
@@ -148,6 +155,13 @@
   </dt>
   <dd class="col-sm-9">
     <%= @prompt_task.cfg_scale %>
+  </dd>
+
+  <dt class="col-sm-3">
+    Clip skip
+  </dt>
+  <dd class="col-sm-9">
+    <%= @prompt_task.clip_skip %>
   </dd>
 
   <%- if @prompt_task.hires_fix? %>

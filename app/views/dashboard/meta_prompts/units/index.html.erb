@@ -5,7 +5,12 @@
   <div class="col-12 col-md-auto d-flex">
     <%= button_to dashboard_prompt_tasks_path(meta_prompt_id: @meta_prompt.id), class: "btn btn-primary px-3 px-sm-5 me-2" do %>
       <span class="d-none d-sm-inline">
-        New task
+        Try ONE
+      </span>
+    <% end %>
+    <%= button_to batch_dashboard_prompt_tasks_path(meta_prompt_id: @meta_prompt.id, batch_size: 10, auto_submit: true), class: "btn btn-primary px-3 px-sm-5 me-2" do %>
+      <span class="d-none d-sm-inline">
+        Make TEN
       </span>
     <% end %>
     <%= link_to edit_dashboard_meta_prompt_path(@meta_prompt), class: "btn btn-outline-primary px-3 px-sm-5 me-2" do %>
@@ -67,6 +72,17 @@
       <%= @meta_prompt.min_cfg_scale %>
     <% else %>
       <%= @meta_prompt.min_cfg_scale %> ~ <%= @meta_prompt.max_cfg_scale %>
+    <% end -%>
+  </dd>
+
+  <dt class="col-sm-3">
+    Clip skip
+  </dt>
+  <dd class="col-sm-9">
+    <%- if @meta_prompt.min_clip_skip == @meta_prompt.max_clip_skip %>
+      <%= @meta_prompt.min_clip_skip %>
+    <% else %>
+      <%= @meta_prompt.min_clip_skip %> ~ <%= @meta_prompt.max_clip_skip %>
     <% end -%>
   </dd>
 

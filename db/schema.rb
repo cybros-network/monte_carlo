@@ -55,6 +55,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
     t.integer "max_steps", null: false
     t.float "min_cfg_scale", null: false
     t.float "max_cfg_scale", null: false
+    t.integer "min_clip_skip", null: false
+    t.integer "max_clip_skip", null: false
     t.boolean "hires_fix", null: false
     t.string "hires_fix_upscaler_name"
     t.float "hires_fix_upscale"
@@ -81,6 +83,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
     t.integer "seed", null: false
     t.integer "steps", null: false
     t.float "cfg_scale", null: false
+    t.integer "clip_skip", null: false
     t.boolean "hires_fix", null: false
     t.string "hires_fix_upscaler_name"
     t.float "hires_fix_upscale"

@@ -54,6 +54,7 @@ gem "devise_invitable"
 gem "omniauth-rails_csrf_protection"
 gem "omniauth-siwe", github: "spruceid/omniauth-siwe", branch: "main"
 
+gem "graphql", "~> 2.0.27"
 gem "graphql-client", require: false
 gem "dotenv-rails", require: false
 
