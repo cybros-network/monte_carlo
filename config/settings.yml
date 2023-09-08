@@ -316,7 +316,7 @@ templates:
     min_steps: 20
     max_steps: 30
     min_cfg_scale: 6
-    max_cfg_scale: 68
+    max_cfg_scale: 8
     min_clip_skip: 2
     max_clip_skip: 2
     hires_fix: true
