@@ -351,27 +351,27 @@ templates:
     hires_fix_max_steps: 30
     hires_fix_min_denoising: 0.7
     hires_fix_max_denoising: 0.7
-  - name: "A reality style, short hair, sweater female photograph"
-    _comment: "Based on https://civitai.com/images/722682"
-    sd_model_name: "neverendingDreamNED_v122BakedVae"
-    prompt: |
-      (masterpiece:1.3), (8k, photorealistic, RAW photo, best quality: 1.4), (1girl), beautiful face, (realistic face), (black hair, short hair:1.3), beautiful hairstyle, realistic eyes, beautiful detailed eyes, (realistic skin), beautiful skin, (sweater), absurdres, attractive, ultra high res, ultra realistic, highly detailed, golden ratio
-    negative_prompt: |
-      easynegative, bad-hands-5, ng_deepnegative_v1_75t, bad-picture-chill-75v, bad-image-v2-39000, verybadimagenegative_v1.3, painting, sketches, text, cropped, jpeg artifacts, ((monochrome)), ((grayscale)), (worst quality, low quality, normal quality, blurry:1.4), (ugly, morbid, mutation, disfigured:1.3), out of frame, long neck, age spot, skin blemishes, mole, acnes, cross-eyed, unbalanced eyes, different eyes color, extra fingers, mutated hands, bad anatomy, long nails, bad proportions, extra limbs, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, twisted legs, fused legs, long neck, username, watermark, poor facial details, bad composition, deformed body features
-    width: 512
-    height: 768
-    sampler_name: "DPM++ 2M Karras"
-    min_steps: 30
-    max_steps: 30
-    min_cfg_scale: 7
-    max_cfg_scale: 7
-    min_clip_skip: 2
-    max_clip_skip: 2
-    hires_fix: true
-    hires_fix_upscaler_name: "R-ESRGAN 4x+"
-    hires_fix_min_upscale: 2
-    hires_fix_max_upscale: 2
-    hires_fix_min_steps: 20
-    hires_fix_max_steps: 30
-    hires_fix_min_denoising: 0.7
-    hires_fix_max_denoising: 0.7
+#  - name: "A reality style, short hair, sweater female photograph"
+#    _comment: "Based on https://civitai.com/images/722682"
+#    sd_model_name: "neverendingDreamNED_v122BakedVae"
+#    prompt: |
+#      (masterpiece:1.3), (8k, photorealistic, RAW photo, best quality: 1.4), (1girl), beautiful face, (realistic face), (black hair, short hair:1.3), beautiful hairstyle, realistic eyes, beautiful detailed eyes, (realistic skin), beautiful skin, (sweater), absurdres, attractive, ultra high res, ultra realistic, highly detailed, golden ratio
+#    negative_prompt: |
+#      easynegative, bad-hands-5, ng_deepnegative_v1_75t, bad-picture-chill-75v, bad-image-v2-39000, verybadimagenegative_v1.3, painting, sketches, text, cropped, jpeg artifacts, ((monochrome)), ((grayscale)), (worst quality, low quality, normal quality, blurry:1.4), (ugly, morbid, mutation, disfigured:1.3), out of frame, long neck, age spot, skin blemishes, mole, acnes, cross-eyed, unbalanced eyes, different eyes color, extra fingers, mutated hands, bad anatomy, long nails, bad proportions, extra limbs, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, twisted legs, fused legs, long neck, username, watermark, poor facial details, bad composition, deformed body features
+#    width: 512
+#    height: 768
+#    sampler_name: "DPM++ 2M Karras"
+#    min_steps: 30
+#    max_steps: 30
+#    min_cfg_scale: 7
+#    max_cfg_scale: 7
+#    min_clip_skip: 2
+#    max_clip_skip: 2
+#    hires_fix: true
+#    hires_fix_upscaler_name: "R-ESRGAN 4x+"
+#    hires_fix_min_upscale: 2
+#    hires_fix_max_upscale: 2
+#    hires_fix_min_steps: 20
+#    hires_fix_max_steps: 30
+#    hires_fix_min_denoising: 0.7
+#    hires_fix_max_denoising: 0.7

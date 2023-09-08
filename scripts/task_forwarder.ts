@@ -57,6 +57,11 @@ if (Number.isNaN(jobSpecVersion) || jobSpecVersion <= 0) {
   console.error("JOB_SPEC_VERSION is invalid.")
   Deno.exit(1)
 }
+const jobMaxInputSize = parseInt(env.JOB_MAX_INPUT_SIZE)
+if (Number.isNaN(jobMaxInputSize) || jobMaxInputSize <= 0) {
+  console.error("JOB_MAX_INPUT_SIZE is invalid.")
+  Deno.exit(1)
+}
 
 function createSubstrateApi(rpcUrl: string): ApiPromise | null {
   let provider = null;
@@ -141,7 +146,7 @@ router.post("/submit", async (ctx) => {
 
   const uniqueTrackId = reqBody["unique_track_id"];
   if (uniqueTrackId === undefined) {
-    console.log("unique_track_id is missing");
+    console.error("unique_track_id is missing");
     ctx.response.status = 400;
     ctx.response.body = {
       error: "`unique_track_id` missing"
@@ -151,7 +156,7 @@ router.post("/submit", async (ctx) => {
   }
   const data = reqBody["data"];
   if (data === undefined) {
-    console.log("data is missing");
+    console.error("data is missing");
     ctx.response.status = 400;
     ctx.response.body = {
       error: "`data` missing"
@@ -160,11 +165,20 @@ router.post("/submit", async (ctx) => {
     return
   }
 
-  const input = {
+  const input = JSON.stringify({
     e2e: false,
     v: 1,
     data,
-  };
+  });
+  if (input.length > jobMaxInputSize) {
+    console.error(`Data too large!`);
+    ctx.response.status = 400;
+    ctx.response.body = {
+      error: "`data` too large"
+    };
+
+    return
+  }
 
   console.info(`Sending offchainComputingPool.createJob(poolId, policyId, uniqueTrackId, implSpecVersion, input, softExpiresIn)`);
   const txPromise = api.tx.offchainComputingPool.createJob(
