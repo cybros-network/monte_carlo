@@ -1,7 +1,7 @@
 class CreateMetaPrompts < ActiveRecord::Migration[7.1]
   def change
     create_table :meta_prompts do |t|
-      t.references :user, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true, index: true
 
       t.string :name, null: false
 

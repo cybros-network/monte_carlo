@@ -30,6 +30,22 @@ Schema = GraphQL::Client.load_schema(HTTP)
 
 Client = GraphQL::Client.new(schema: Schema, execute: HTTP)
 
+MonitorJobPoolQuery = Client.parse <<-GRAPHQL
+  query($pid: Int) {
+    pools(limit: 1, where: {poolId_eq: $pid}) {
+      onlineWorkersCount
+      workersCount
+      pendingJobsCount
+      processingJobsCount
+      successfulJobsCount
+      erroredJobsCount
+      failedJobsCount
+      panickyJobsCount
+      updatedAt
+    }
+  }
+GRAPHQL
+
 FindJobQuery = Client.parse <<-GRAPHQL
   query($pid: Int, $uid: Int) {
     jobs(where: {poolId_eq: $pid, uniqueTrackId_eq: $uid}, orderBy: jobId_DESC) {
@@ -53,6 +69,22 @@ FindJobQuery = Client.parse <<-GRAPHQL
 GRAPHQL
 
 def run
+  result = Client.query(
+    MonitorJobPoolQuery,
+    variables: {
+      pid: ENV.fetch("JOB_POOL_ID").to_i
+    },
+    context: {}
+  )
+  record = result.data.pools.first
+  if record
+    KeyValue.job_pool_workers_stats.update json_value: {
+      total_workers_count: record.workers_count || 0,
+      online_workers_count: record.online_workers_count || 0,
+      updated_at: Time.zone.now
+    }
+  end
+
   PromptTask.where(status: %i[submitted processing]).find_each do |task|
     result = Client.query(
       FindJobQuery,

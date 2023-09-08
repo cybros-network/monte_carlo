@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
+ActiveRecord::Schema[7.1].define(version: 2023_09_08_132308) do
   create_table "glossaries", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
@@ -26,7 +26,21 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
     t.string "extern_uid", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id", "provider"], name: "index_identities_on_user_id_and_provider", unique: true
     t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
+  create_table "key_values", force: :cascade do |t|
+    t.string "key"
+    t.boolean "visible"
+    t.decimal "decimal_value"
+    t.integer "integer_value"
+    t.string "string_value"
+    t.datetime "datetime_value"
+    t.string "json_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_key_values_on_key"
   end
 
   create_table "meta_prompt_units", force: :cascade do |t|
@@ -41,6 +55,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
     t.datetime "updated_at", null: false
     t.index ["glossary_id"], name: "index_meta_prompt_units_on_glossary_id"
     t.index ["meta_prompt_id"], name: "index_meta_prompt_units_on_meta_prompt_id"
+    t.index ["type"], name: "index_meta_prompt_units_on_type"
   end
 
   create_table "meta_prompts", force: :cascade do |t|
@@ -92,7 +107,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
     t.float "hires_fix_denoising"
     t.string "status", null: false
     t.integer "unique_track_id"
-    t.text "transaction_id"
+    t.string "transaction_id"
     t.string "result"
     t.text "raw_output"
     t.text "generated_proof_url"
@@ -106,6 +121,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["meta_prompt_id"], name: "index_prompt_tasks_on_meta_prompt_id"
+    t.index ["status"], name: "index_prompt_tasks_on_status"
+    t.index ["unique_track_id"], name: "index_prompt_tasks_on_unique_track_id"
     t.index ["user_id"], name: "index_prompt_tasks_on_user_id"
   end
 

@@ -1,7 +1,7 @@
 class CreateMetaPromptUnits < ActiveRecord::Migration[7.1]
   def change
     create_table :meta_prompt_units do |t|
-      t.references :meta_prompt, null: false, foreign_key: true
+      t.references :meta_prompt, null: false, foreign_key: true, index: true
       t.boolean :negative, null: false, default: false
       t.integer :order
 
@@ -10,7 +10,7 @@ class CreateMetaPromptUnits < ActiveRecord::Migration[7.1]
       t.references :glossary, null: true, foreign_key: true
       t.integer :frequency
 
-      t.string :type, null: false
+      t.string :type, null: false, index: true
 
       t.timestamps
     end

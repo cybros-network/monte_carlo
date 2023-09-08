@@ -11,6 +11,15 @@
   </div>
 </div>
 
+<% workers_stats = KeyValue.job_pool_workers_stats.json_value %>
+<% if workers_stats["updated_at"] %>
+  <p>
+    Total workers: <%= workers_stats.fetch("total_workers_count", 0) %>
+    Online workers: <%= workers_stats.fetch("online_workers_count", 0) %>
+    Updated at: <%= time_tag Time.parse(workers_stats["updated_at"]) %>
+  </p>
+<% end %>
+
 <table class="table">
   <thead>
   <tr>

@@ -5,7 +5,7 @@ import {ApiPromise, HttpProvider, Keyring, WsProvider} from "https://deno.land/x
 import {cryptoWaitReady} from "https://deno.land/x/polkadot/util-crypto/mod.ts";
 import type {KeyringPair} from "https://deno.land/x/polkadot/keyring/types.ts";
 
-import {Application, Router, isHttpError} from "https://deno.land/x/oak/mod.ts";
+import {Application, Router} from "https://deno.land/x/oak/mod.ts";
 
 declare global {
   let nonce: number

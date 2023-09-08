@@ -1,9 +1,9 @@
 class CreatePromptTasks < ActiveRecord::Migration[7.1]
   def change
     create_table :prompt_tasks do |t|
-      t.references :user, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true, index: true
 
-      t.references :meta_prompt, null: true, foreign_key: true
+      t.references :meta_prompt, null: true, foreign_key: true, index: true
 
       t.text :prompt, null: false
       t.text :negative_prompt
@@ -22,10 +22,10 @@ class CreatePromptTasks < ActiveRecord::Migration[7.1]
       t.integer :hires_fix_steps
       t.float :hires_fix_denoising
 
-      t.string :status, null: false
+      t.string :status, null: false, index: true
 
-      t.integer :unique_track_id
-      t.text :transaction_id
+      t.integer :unique_track_id, index: true
+      t.string :transaction_id
 
       t.string :result
       t.text :raw_output
