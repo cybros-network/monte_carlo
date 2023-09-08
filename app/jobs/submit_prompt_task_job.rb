@@ -48,7 +48,7 @@ class SubmitPromptTaskJob < ApplicationJob
     data = {
       image_upload_url: image_upload_url,
       proof_upload_url: proof_upload_url,
-      prompt: task.positive_prompt,
+      prompt: task.prompt,
       negative_prompt: task.negative_prompt,
       sd_model_name: task.sd_model_name,
       sampler_name: task.sampler_name,
@@ -74,9 +74,11 @@ class SubmitPromptTaskJob < ApplicationJob
           }.to_json
         end
       rescue Faraday::Error => e
-        # You can handle errors here (4xx/5xx responses, timeouts, etc.)
-        Rails.logger.error e.response[:status]
-        Rails.logger.error e.response[:body]
+        if e.response
+          # You can handle errors here (4xx/5xx responses, timeouts, etc.)
+          Rails.logger.error e.response[:status]
+          Rails.logger.error e.response[:body]
+        end
 
         nil
       end

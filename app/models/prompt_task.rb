@@ -22,7 +22,7 @@ class PromptTask < ApplicationRecord
     panic: "panic"
   }
 
-  validates :positive_prompt,
+  validates :prompt,
             presence: true,
             allow_blank: false
 

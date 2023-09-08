@@ -5,8 +5,9 @@ class CreatePromptTasks < ActiveRecord::Migration[7.1]
 
       t.references :meta_prompt, null: true, foreign_key: true
 
-      t.text :positive_prompt, null: false
+      t.text :prompt, null: false
       t.text :negative_prompt
+
       t.string :sd_model_name, null: false
       t.string :sampler_name, null: false
       t.integer :width, null: false

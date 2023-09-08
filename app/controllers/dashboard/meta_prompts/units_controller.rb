@@ -16,7 +16,7 @@ module Dashboard::MetaPrompts
         when "Glossary"
           MetaPromptUnits::Glossary
         else
-          redirect_to dashboard_meta_prompt_units_url(@meta_prompt)
+          redirect_to dashboard_meta_prompt_url(@meta_prompt)
           return
         end
       @meta_prompt_unit = @meta_prompt.units.build(type: type)
@@ -24,27 +24,27 @@ module Dashboard::MetaPrompts
 
       if @meta_prompt_unit.save
         # flash[:notice] = "Prompt unit was successfully created."
-        redirect_to dashboard_meta_prompt_units_url(@meta_prompt)
+        redirect_to dashboard_meta_prompt_url(@meta_prompt)
       else
         flash[:alert] = "Prompt unit fails to add."
-        redirect_to dashboard_meta_prompt_units_url(@meta_prompt)
+        redirect_to dashboard_meta_prompt_url(@meta_prompt)
       end
     end
 
     def update
       if @meta_prompt_unit.update(meta_prompt_unit_params)
         flash[:notice] = "Prompt unit was successfully updated."
-        redirect_to dashboard_meta_prompt_units_url(@meta_prompt), status: :see_other
+        redirect_to dashboard_meta_prompt_url(@meta_prompt), status: :see_other
       else
         flash[:alert] = "Prompt unit fails to update."
-        redirect_to dashboard_meta_prompt_units_url(@meta_prompt)
+        redirect_to dashboard_meta_prompt_url(@meta_prompt)
       end
     end
 
     def destroy
       @meta_prompt_unit.destroy!
 
-      redirect_to dashboard_meta_prompt_units_url(@meta_prompt), status: :see_other
+      redirect_to dashboard_meta_prompt_url(@meta_prompt), status: :see_other
     end
 
     private

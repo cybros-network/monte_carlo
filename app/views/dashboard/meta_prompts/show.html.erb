@@ -8,9 +8,9 @@
         Try ONE
       </span>
     <% end %>
-    <%= button_to batch_dashboard_prompt_tasks_path(meta_prompt_id: @meta_prompt.id, batch_size: 10, auto_submit: true), class: "btn btn-primary px-3 px-sm-5 me-2" do %>
+    <%= button_to batch_dashboard_prompt_tasks_path(meta_prompt_id: @meta_prompt.id, batch_size: 5, auto_submit: true), class: "btn btn-primary px-3 px-sm-5 me-2" do %>
       <span class="d-none d-sm-inline">
-        Make TEN
+        Gimme FIVE
       </span>
     <% end %>
     <%= link_to edit_dashboard_meta_prompt_path(@meta_prompt), class: "btn btn-outline-primary px-3 px-sm-5 me-2" do %>
@@ -112,7 +112,11 @@
       Hires. upscale
     </dt>
     <dd class="col-sm-9">
-      <%= @meta_prompt.hires_fix_upscale %>
+      <%- if @meta_prompt.hires_fix_min_upscale == @meta_prompt.hires_fix_max_upscale %>
+        <%= @meta_prompt.hires_fix_min_upscale %>
+      <% else %>
+        <%= @meta_prompt.hires_fix_min_upscale %> ~ <%= @meta_prompt.hires_fix_max_upscale %>
+      <% end -%>
     </dd>
 
     <dt class="col-sm-3">
@@ -139,10 +143,11 @@
   <% end -%>
 </dl>
 
-<div>Add vocabulary</div>
-<%= render "inline_vocabulary_unit_form", meta_prompt: @meta_prompt, unit: MetaPromptUnits::Vocabulary.new %>
-<div>Add glossary</div>
-<%= render "inline_glossary_unit_form", meta_prompt: @meta_prompt, unit: MetaPromptUnits::Glossary.new %>
+<small>
+  You could random pick form glossaries to enhance the prompt.
+  <%= link_to "Create a glossary", new_dashboard_glossary_path %>
+</small>
+<%= render "dashboard/meta_prompts/units/inline_glossary_unit_form", meta_prompt: @meta_prompt, unit: MetaPromptUnits::Glossary.new %>
 
 <table class="table align-middle">
   <thead>
@@ -153,7 +158,7 @@
   </tr>
   </thead>
   <tbody>
-  <% @meta_prompt_units.each do |meta_prompt_unit| %>
+  <% @meta_prompt.units.each do |meta_prompt_unit| %>
     <tr>
       <th scope="row">
         <%= meta_prompt_unit.negative? ? "-" : "+" %>

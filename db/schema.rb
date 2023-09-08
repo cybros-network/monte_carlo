@@ -46,6 +46,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
   create_table "meta_prompts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "name", null: false
+    t.text "prompt", null: false
+    t.text "negative_prompt"
     t.string "sd_model_name", null: false
     t.string "sampler_name", null: false
     t.integer "width", null: false
@@ -59,13 +61,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
     t.integer "max_clip_skip", null: false
     t.boolean "hires_fix", null: false
     t.string "hires_fix_upscaler_name"
-    t.float "hires_fix_upscale"
+    t.float "hires_fix_min_upscale"
+    t.float "hires_fix_max_upscale"
     t.integer "hires_fix_min_steps"
     t.integer "hires_fix_max_steps"
     t.float "hires_fix_min_denoising"
     t.float "hires_fix_max_denoising"
-    t.integer "positive_units_count", default: 0, null: false
-    t.integer "negative_units_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_meta_prompts_on_user_id"
@@ -74,7 +75,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_01_001533) do
   create_table "prompt_tasks", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "meta_prompt_id"
-    t.text "positive_prompt", null: false
+    t.text "prompt", null: false
     t.text "negative_prompt"
     t.string "sd_model_name", null: false
     t.string "sampler_name", null: false

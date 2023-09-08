@@ -39,14 +39,6 @@ stable_diffusion:
       category: [ ]
       link: "https://civitai.com/models/23900?modelVersionId=95489"
       author: "https://civitai.com/user/Lykon/models"
-    - id: "anythingelseV4_v45"
-      enabled: true
-      title: "AnythingElse V4"
-      description: ""
-      tags: [ ]
-      category: [ ]
-      link: "https://civitai.com/models/4855/anythingelse-v4"
-      author: ""
     - id: "AnythingV5Ink_v5PrtRE"
       enabled: true
       title: "Anything V5"
@@ -150,35 +142,35 @@ stable_diffusion:
     - DDIM
     - PLMS
     - Euler a
-#    - Euler
-#    - DPM++ 2S a
-#    - DPM++ 2S a Karras
-#    - DPM++ 2M
+    - Euler
+    - DPM++ 2S a
+    - DPM++ 2S a Karras
+    - DPM++ 2M
     - DPM++ 2M Karras
-#    - DPM++ SDE
-#    - DPM++ SDE Karras
+    - DPM++ SDE
+    - DPM++ SDE Karras
     - DPM++ 2M SDE
     - DPM++ 2M SDE Karras
-#    - DPM++ 3M SDE
-#    - DPM++ 3M SDE Karras
-#    - DPM fast
-#    - DPM adaptive
-#    - DPM2
+    - DPM++ 3M SDE
+    - DPM++ 3M SDE Karras
+    - DPM fast
+    - DPM adaptive
+    - DPM2
     - DPM2 Karras
-#    - DPM2 a
-#    - DPM2 a Karras
-#    - LMS
-#    - LMS Karras
-#    - Heun
+    - DPM2 a
+    - DPM2 a Karras
+    - LMS
+    - LMS Karras
+    - Heun
 
   upscalers:
     - None
-#    - Latent
-#    - Latent (antialiased)
-#    - Latent (bicubic)
-#    - Latent (bicubic antialiased)
-#    - Latent (nearest)
-#    - Latent (nearest-exact)
+    - Latent
+    - Latent (antialiased)
+    - Latent (bicubic)
+    - Latent (bicubic antialiased)
+    - Latent (nearest)
+    - Latent (nearest-exact)
     - Lanczos
     - Nearest
     - ESRGAN_4x
@@ -190,3 +182,196 @@ stable_diffusion:
     - ScuNET PSNR
     - SwinIR 4x
 
+templates:
+  - name: "A reality sci-fi style, man's portrait"
+    _comment: "Based on https://civitai.com/images/1858754"
+    sd_model_name: "absolutereality_v181"
+    prompt: |
+      close up Portrait photo of muscular bearded guy in a worn mech suit, ((light bokeh)), intricate, (steel metal [rust]), elegant, sharp focus, photo by greg rutkowski, soft lighting, vibrant colors, masterpiece, ((streets)), detailed face
+    negative_prompt: |
+      BadDream, (UnrealisticDream:1.3)
+    width: 512
+    height: 768
+    sampler_name: "DPM++ 2M SDE Karras"
+    min_steps: 20
+    max_steps: 30
+    min_cfg_scale: 3
+    max_cfg_scale: 5
+    min_clip_skip: 2
+    max_clip_skip: 2
+    hires_fix: true
+    hires_fix_upscaler_name: "8x_NMKD-Superscale_150000_G"
+    hires_fix_min_upscale: 1.5
+    hires_fix_max_upscale: 2
+    hires_fix_min_steps: 15
+    hires_fix_max_steps: 20
+    hires_fix_min_denoising: 0.1
+    hires_fix_max_denoising: 0.5
+  - name: "A reality style, sexy dressing female's portrait"
+    _comment: "Based on https://civitai.com/images/1865281"
+    sd_model_name: "absolutereality_v181"
+    prompt: |
+      (medium shot:1.4), portrait, (lewd, risque, skimpy, revealing:1.1), woman, (shoulder length hair:1.3), (hair up in messy bun:1.3), blonde hair, (blue eyes:0.8), short white nightgown, (sheer, see-through:1.1),  (implied nudity:1.1), foundation, concealer, mascara, rosy cheeks, smokey eye makeup, lipstick, (beautiful, gorgeous:1.1), smug, smirk, pillows, leaning back, reclined, (legs crossed:1.3), arms up, arm pits, hands behind head, detailed background, luxury apartment, bedroom, silk sheets, cosy, inviting, (aquarium windows:1.2), (low light:1.5), (dim:1.5), (lamp light:1.2) <lora:LowRA:1>
+    negative_prompt: |
+      (natural light:1.5), (nipples:0.5), (naked, nude:0.8), (bikini:1.2), (bra:1.2), (panties, underwear:1.2), BadDream, UnrealisticDream, bad-hands-5, (close up, cu, ecu, full face shot:1.2), (long shot, full shot:1.2), (ugly, ugly face, average face, imperfect complexion:1.3), prone, (pussy:1.4), (simple background:1.4)
+    width: 512
+    height: 768
+    sampler_name: "DPM++ 2M SDE Karras"
+    min_steps: 20
+    max_steps: 30
+    min_cfg_scale: 5
+    max_cfg_scale: 10
+    min_clip_skip: 2
+    max_clip_skip: 2
+    hires_fix: true
+    hires_fix_upscaler_name: "8x_NMKD-Superscale_150000_G"
+    hires_fix_min_upscale: 2
+    hires_fix_max_upscale: 3
+    hires_fix_min_steps: 20
+    hires_fix_max_steps: 30
+    hires_fix_min_denoising: 0.1
+    hires_fix_max_denoising: 0.5
+  - name: "A nature, Milk way landscape"
+    _comment: "Based on https://civitai.com/images/1058107"
+    sd_model_name: "AnythingV5Ink_v5PrtRE"
+    prompt: |
+      masterpiece, best quality, landscape, no humans, sadness,oil painting \(medium\) fake sky,(multiple fake stars falling from sky:1.2),floating star shape falling down,broken ground
+    negative_prompt: |
+      (low quality, worst quality:1.4), (bad anatoalchemistmy), (inaccurate limb:1.2),bad composition, inaccurate eyes, extra digit,fewer digits,(extra arms:1.2),belly
+    width: 512
+    height: 1152
+    sampler_name: "DPM++ SDE"
+    min_steps: 20
+    max_steps: 30
+    min_cfg_scale: 8
+    max_cfg_scale: 8
+    min_clip_skip: 2
+    max_clip_skip: 2
+    hires_fix: true
+    hires_fix_upscaler_name: "Latent (bicubic antialiased)"
+    hires_fix_min_upscale: 2.4
+    hires_fix_max_upscale: 2.4
+    hires_fix_min_steps: 20
+    hires_fix_max_steps: 30
+    hires_fix_min_denoising: 0.6
+    hires_fix_max_denoising: 0.6
+  - name: "A 2.5D style, twin-tails, uniform, glass girl portrait"
+    _comment: "Based on https://civitai.com/images/1419698"
+    sd_model_name: "caramelapple_v12"
+    prompt: |
+      (masterpiece), best quality, high resolution, highly detailed, detailed background, perfect lighting, The student council girl with twin braids and glasses whom you don't know that she's a pervert until looking prompts
+    negative_prompt: |
+      (EasyNegative), (bad-hands-5), an6, verybadimagenegative_v1.3, (worst quality, low quality:1.2), (missing fingers, missing hands, missing legs:1.4) (extra limbs, extra fingers, extra hands, extra legs:1.4), (mutate fingers, mutated hands, mutated legs:1.4), (malformed hands, malformed fingers, malformed legs:1.4), (poorly drawn hands, poorly drawn face), (text, signature, watermark, username), (logo:1.5)
+    width: 512
+    height: 768
+    sampler_name: "DPM++ 2M SDE Karras"
+    min_steps: 20
+    max_steps: 30
+    min_cfg_scale: 4
+    max_cfg_scale: 6
+    min_clip_skip: 2
+    max_clip_skip: 2
+    hires_fix: true
+    hires_fix_upscaler_name: "R-ESRGAN 4x+ Anime6B"
+    hires_fix_min_upscale: 1
+    hires_fix_max_upscale: 2
+    hires_fix_min_steps: 20
+    hires_fix_max_steps: 30
+    hires_fix_min_denoising: 0.3
+    hires_fix_max_denoising: 0.6
+  - name: "A cute tiny mouse"
+    _comment: "Based on https://civitai.com/images/1797608"
+    sd_model_name: "dreamshaper_8"
+    prompt: |
+      a very cute tiny mouse standing with a piece of cheese, medieval kitchen floor, LowAngleView-3000, (disney artwork:1.2), (highly detailed eyes), cozy indoor lighting, colorful, artstation, cinematic, character design by mark ryden and pixar and hayao miyazaki, unreal 5, daz, hyperrealistic, octane render, unreal engine, vray
+    negative_prompt: |
+      (((NSFW))), easynegative, BadDream, UnrealisticDream, (((dog))), (((cat))), human hand, dog-like, cat-like, human
+    width: 512
+    height: 512
+    sampler_name: "DDIM"
+    min_steps: 20
+    max_steps: 30
+    min_cfg_scale: 6.5
+    max_cfg_scale: 6.5
+    min_clip_skip: 2
+    max_clip_skip: 2
+    hires_fix: false
+    hires_fix_upscaler_name: "R-ESRGAN 4x+ Anime6B"
+    hires_fix_min_upscale: 1
+    hires_fix_max_upscale: 2
+    hires_fix_min_steps: 20
+    hires_fix_max_steps: 30
+    hires_fix_min_denoising: 0.3
+    hires_fix_max_denoising: 0.6
+  - name: "A anime style, an outing girl"
+    _comment: "Based on https://civitai.com/images/2003674"
+    sd_model_name: "gostlyCute_v10"
+    prompt: |
+      cute illustration, high-res, ultra-detailed, beautiful detailed eyes, 1girl,solo, small breasts,brown eyes, blush, bow, brown medium hair, mountaineering hat, climbing clothes,windbreaker, carrying a backpack, alpine flowers, trail, mountain, cloud, blue sky, perfect lighting
+    negative_prompt: |
+      (bad-hands-3:1.1)EasyNegativeV2, Two heads, distorted fingers, poorly drawn face, cropped image, disfigured hands, disconnected limbs, low-resolution, bad anatomy, grainy quality, overexposed lighting
+    width: 512
+    height: 768
+    sampler_name: "DPM++ 2M Karras"
+    min_steps: 20
+    max_steps: 30
+    min_cfg_scale: 6
+    max_cfg_scale: 68
+    min_clip_skip: 2
+    max_clip_skip: 2
+    hires_fix: true
+    hires_fix_upscaler_name: "Lanczos"
+    hires_fix_min_upscale: 2
+    hires_fix_max_upscale: 2
+    hires_fix_min_steps: 20
+    hires_fix_max_steps: 30
+    hires_fix_min_denoising: 0.3
+    hires_fix_max_denoising: 0.6
+  - name: "A cute girl sticker"
+    _comment: "Based on https://civitai.com/images/1576217"
+    sd_model_name: "inkPrt_prt"
+    prompt: |
+      1girl,masterpiece,chibi, closed eyes, commentary request, flower, green hair, hagikaze kancolle, hagiuki aoi, highres, holding own wrist, japanese clothes, kaamin  kantai collection, light rays on body, looking at viewer's hair, open mouth, short sleeves, solo focus with anotherirk, sunlight, tasuki, translated, twintails day, white ribbon-trimmed collar, yellow background, zouji campus lifeboat, zuihouzu kyou demo no monogatari, zuirio knutakoto, zunami renge roulette, zuiijianbei chan xiao shiro
+    negative_prompt: |
+      lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry,,lowres,,pubic hair, lowres
+    width: 640
+    height: 640
+    sampler_name: "Euler"
+    min_steps: 30
+    max_steps: 30
+    min_cfg_scale: 7
+    max_cfg_scale: 7
+    min_clip_skip: 2
+    max_clip_skip: 2
+    hires_fix: true
+    hires_fix_upscaler_name: "R-ESRGAN 4x+ Anime6B"
+    hires_fix_min_upscale: 1
+    hires_fix_max_upscale: 1
+    hires_fix_min_steps: 20
+    hires_fix_max_steps: 30
+    hires_fix_min_denoising: 0.7
+    hires_fix_max_denoising: 0.7
+  - name: "A reality style, short hair, sweater female photograph"
+    _comment: "Based on https://civitai.com/images/722682"
+    sd_model_name: "neverendingDreamNED_v122BakedVae"
+    prompt: |
+      (masterpiece:1.3), (8k, photorealistic, RAW photo, best quality: 1.4), (1girl), beautiful face, (realistic face), (black hair, short hair:1.3), beautiful hairstyle, realistic eyes, beautiful detailed eyes, (realistic skin), beautiful skin, (sweater), absurdres, attractive, ultra high res, ultra realistic, highly detailed, golden ratio
+    negative_prompt: |
+      easynegative, bad-hands-5, ng_deepnegative_v1_75t, bad-picture-chill-75v, bad-image-v2-39000, verybadimagenegative_v1.3, painting, sketches, text, cropped, jpeg artifacts, ((monochrome)), ((grayscale)), (worst quality, low quality, normal quality, blurry:1.4), (ugly, morbid, mutation, disfigured:1.3), out of frame, long neck, age spot, skin blemishes, mole, acnes, cross-eyed, unbalanced eyes, different eyes color, extra fingers, mutated hands, bad anatomy, long nails, bad proportions, extra limbs, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, twisted legs, fused legs, long neck, username, watermark, poor facial details, bad composition, deformed body features
+    width: 512
+    height: 768
+    sampler_name: "DPM++ 2M Karras"
+    min_steps: 30
+    max_steps: 30
+    min_cfg_scale: 7
+    max_cfg_scale: 7
+    min_clip_skip: 2
+    max_clip_skip: 2
+    hires_fix: true
+    hires_fix_upscaler_name: "R-ESRGAN 4x+"
+    hires_fix_min_upscale: 2
+    hires_fix_max_upscale: 2
+    hires_fix_min_steps: 20
+    hires_fix_max_steps: 30
+    hires_fix_min_denoising: 0.7
+    hires_fix_max_denoising: 0.7

@@ -13,6 +13,18 @@
   </div>
 
   <div class="mb-3">
+    <%= f.label :prompt %>
+    <%= f.text_area :prompt, required: "required", class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :prompt, class: "invalid-feedback" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :negative_prompt %>
+    <%= f.text_area :negative_prompt, class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :negative_prompt, class: "invalid-feedback" %>
+  </div>
+
+  <div class="mb-3">
     <%= f.label :sampler_name %>
     <%= f.select :sampler_name, Constants::SUPPORTED_SAMPLER_NAMES, { include_blank: false }, class: "form-select", class_for_error: "is-invalid" %>
     <%= f.error_message :sampler_name, class: "invalid-feedback" %>
@@ -83,10 +95,17 @@
     <%= f.error_message :hires_fix_upscaler_name, class: "invalid-feedback" %>
   </div>
 
-  <div class="mb-3">
-    <%= f.label :hires_fix_upscale %>
-    <%= f.number_field :hires_fix_upscale, step: 0.01, min: Constants::HIRES_FIX_UPSCALE_RANGE.begin, max: Constants::HIRES_FIX_UPSCALE_RANGE.end, class: "form-control", class_for_error: "is-invalid" %>
-    <%= f.error_message :hires_fix_upscale, class: "invalid-feedback" %>
+  <div class="row mb-3">
+    <div class="col">
+      <%= f.label :hires_fix_min_upscale %>
+      <%= f.number_field :hires_fix_min_upscale, step: 0.05, min: Constants::HIRES_FIX_UPSCALE_RANGE.begin, max: Constants::HIRES_FIX_UPSCALE_RANGE.end, class: "form-control", class_for_error: "is-invalid" %>
+      <%= f.error_message :hires_fix_min_upscale, class: "invalid-feedback" %>
+    </div>
+    <div class="col">
+      <%= f.label :hires_fix_max_upscale %>
+      <%= f.number_field :hires_fix_max_upscale, step: 0.05, min: Constants::HIRES_FIX_UPSCALE_RANGE.begin, max: Constants::HIRES_FIX_UPSCALE_RANGE.end, class: "form-control", class_for_error: "is-invalid" %>
+      <%= f.error_message :hires_fix_max_upscale, class: "invalid-feedback" %>
+    </div>
   </div>
 
   <div class="row mb-3">

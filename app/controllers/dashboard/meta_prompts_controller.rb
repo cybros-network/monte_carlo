@@ -10,11 +10,17 @@ module Dashboard
     end
 
     def show
-      redirect_to dashboard_meta_prompt_units_url(@meta_prompt), status: :see_other
     end
 
     def new
-      @meta_prompt = MetaPrompt.new
+      template =
+        if params[:template_id].present?
+          Settings.templates[params[:template_id].to_i].to_h.except(:_comment)
+        else
+          {}
+        end
+
+      @meta_prompt = MetaPrompt.new template
     end
 
     def edit
@@ -63,6 +69,8 @@ module Dashboard
       def meta_prompt_params
         params.require(:meta_prompt).permit(
           :name,
+          :prompt,
+          :negative_prompt,
           :sd_model_name,
           :sampler_name,
           :width,
@@ -74,7 +82,8 @@ module Dashboard
           :max_cfg_scale,
           :hires_fix,
           :hires_fix_upscaler_name,
-          :hires_fix_upscale,
+          :hires_fix_min_upscale,
+          :hires_fix_max_upscale,
           :hires_fix_min_steps,
           :hires_fix_max_steps,
           :hires_fix_min_denoising,

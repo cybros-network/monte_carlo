@@ -1,2 +1,11 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<% if Settings.templates.any? %>
+  <h1>Quick start from template</h1>
+
+  <ul>
+    <% Settings.templates.each_with_index do |t, i| %>
+      <li>
+        <%= link_to t.name, new_dashboard_meta_prompt_path(template_id: i) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

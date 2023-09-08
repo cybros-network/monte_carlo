@@ -112,7 +112,7 @@ module Dashboard
 
       def prompt_task_params
         params.require(:prompt_task).permit(
-          :positive_prompt,
+          :prompt,
           :negative_prompt,
           :sd_model_name,
           :sampler_name,

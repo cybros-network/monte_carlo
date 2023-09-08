@@ -4,6 +4,10 @@ class CreateMetaPrompts < ActiveRecord::Migration[7.1]
       t.references :user, null: false, foreign_key: true
 
       t.string :name, null: false
+
+      t.text :prompt, null: false
+      t.text :negative_prompt
+
       t.string :sd_model_name, null: false
       t.string :sampler_name, null: false
       t.integer :width, null: false
@@ -17,14 +21,12 @@ class CreateMetaPrompts < ActiveRecord::Migration[7.1]
       t.integer :max_clip_skip, null: false
       t.boolean :hires_fix, null: false
       t.string :hires_fix_upscaler_name
-      t.float :hires_fix_upscale
+      t.float :hires_fix_min_upscale
+      t.float :hires_fix_max_upscale
       t.integer :hires_fix_min_steps
       t.integer :hires_fix_max_steps
       t.float :hires_fix_min_denoising
       t.float :hires_fix_max_denoising
-
-      t.integer :positive_units_count, null: false, default: 0
-      t.integer :negative_units_count, null: false, default: 0
 
       t.timestamps
     end

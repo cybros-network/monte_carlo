@@ -1,10 +1,7 @@
-<%= form_with(model: unit, scope: :meta_prompt_unit, url: dashboard_meta_prompt_units_path, local: true, class: "row row-cols-lg-auto g-3 align-items-center mb-3") do |f| %>
+<%= form_with(model: unit, scope: :meta_prompt_unit, url: dashboard_meta_prompt_units_path(meta_prompt), local: true, class: "row row-cols-lg-auto g-3 align-items-center mb-3") do |f| %>
   <%= hidden_field_tag "_inline", true %>
   <%= hidden_field_tag "_type", "Glossary" %>
 
-  <div class="col-12">
-    <%= f.label :glossary_id %>
-  </div>
   <div class="col-12">
     <%= f.collection_select :glossary_id, Glossary.where(user: current_user), :id, :name, { include_blank: false }, class: "form-select", class_for_error: "is-invalid" %>
     <%= f.error_message :glossary_id, class: "invalid-feedback" %>
@@ -26,6 +23,6 @@
   </div>
 
   <div class="col-12">
-    <%= f.submit class: "btn btn-primary" %>
+    <%= f.submit "Add", class: "btn btn-primary" %>
   </div>
 <% end %>

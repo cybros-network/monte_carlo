@@ -1,9 +1,9 @@
 <%- back_path ||= dashboard_prompt_tasks_path -%>
 <%= form_with(model: [:dashboard, prompt_task], local: true) do |f| %>
   <div class="mb-3">
-    <%= f.label :positive_prompt %>
-    <%= f.text_area :positive_prompt, required: "required", class: "form-control", class_for_error: "is-invalid" %>
-    <%= f.error_message :positive_prompt, class: "invalid-feedback" %>
+    <%= f.label :prompt %>
+    <%= f.text_area :prompt, required: "required", class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :prompt, class: "invalid-feedback" %>
   </div>
 
   <div class="mb-3">

@@ -12,6 +12,10 @@ class MetaPrompt < ApplicationRecord
             presence: true,
             allow_blank: false
 
+  validates :prompt,
+            presence: true,
+            allow_blank: false
+
   validates :sd_model_name,
             presence: true,
             inclusion: {
@@ -133,7 +137,7 @@ class MetaPrompt < ApplicationRecord
             allow_blank: false,
             if: :hires_fix?
 
-  validates :hires_fix_upscale,
+  validates :hires_fix_min_upscale,
             presence: true,
             numericality: {
               only_integer: false,
@@ -142,6 +146,23 @@ class MetaPrompt < ApplicationRecord
             },
             allow_blank: false,
             if: :hires_fix?
+
+  validates :hires_fix_max_upscale,
+            presence: true,
+            numericality: {
+              only_integer: false,
+              greater_than_or_equal_to: Constants::HIRES_FIX_UPSCALE_RANGE.begin,
+              less_than_or_equal_to: Constants::HIRES_FIX_UPSCALE_RANGE.end
+            },
+            allow_blank: false,
+            if: :hires_fix?
+  validate do |record|
+    next unless record.hires_fix?
+
+    if record.hires_fix_max_upscale < record.hires_fix_min_upscale
+      record.errors.add :hires_fix_max_upscale, :greater_than_or_equal_to, record.hires_fix_min_upscale
+    end
+  end
 
   validates :hires_fix_min_steps,
             presence: true,
@@ -213,7 +234,8 @@ class MetaPrompt < ApplicationRecord
     record.max_clip_skip ||= 2
     record.hires_fix ||= false
     record.hires_fix_upscaler_name ||= Constants::SUPPORTED_HIRES_UPSCALER_NAMES.first
-    record.hires_fix_upscale ||= 2
+    record.hires_fix_min_upscale ||= 2.0
+    record.hires_fix_max_upscale ||= 2.0
     record.hires_fix_min_steps ||= 1
     record.hires_fix_max_steps ||= 1
     record.hires_fix_min_denoising ||= 0.7
@@ -225,22 +247,22 @@ class MetaPrompt < ApplicationRecord
       (b / v).round * v
     }
 
-    positive_prompts = []
-    negative_prompts = []
+    prompts = [prompt]
+    negative_prompts = [negative_prompt]
     units.includes(glossary: :vocabularies).sort_by(&:order).reverse_each do |elem|
       case elem
       when MetaPromptUnits::Vocabulary
         if elem.negative?
           negative_prompts << elem.text
         else
-          positive_prompts << elem.text
+          prompts << elem.text
         end
       when MetaPromptUnits::Glossary
         elem.glossary.vocabularies.sample(elem.frequency).each do |vocabulary|
           if elem.negative?
             negative_prompts << vocabulary.text
           else
-            positive_prompts << vocabulary.text
+            prompts << vocabulary.text
           end
         end
       else
@@ -251,8 +273,8 @@ class MetaPrompt < ApplicationRecord
     # TODO: quote prompts
 
     prompt_tasks.build(
-      positive_prompt: positive_prompts.join(", "),
-      negative_prompt: negative_prompts.join(", "),
+      prompt: prompts.reject(&:blank?).join(", ").delete("\r").tr("\n", " ").strip,
+      negative_prompt: negative_prompts.reject(&:blank?).join(", ").delete("\r").tr("\n", " ").strip,
       sd_model_name: sd_model_name,
       sampler_name: sampler_name,
       width: width,
@@ -263,7 +285,7 @@ class MetaPrompt < ApplicationRecord
       clip_skip: rand(min_clip_skip..max_clip_skip),
       hires_fix: hires_fix,
       hires_fix_upscaler_name: hires_fix_upscaler_name,
-      hires_fix_upscale: round_to.call(hires_fix_upscale, 0.05).truncate(2),
+      hires_fix_upscale: round_to.call(rand(hires_fix_min_upscale..hires_fix_max_upscale), 0.5).truncate(2),
       hires_fix_steps: rand(hires_fix_min_steps..hires_fix_max_steps),
       hires_fix_denoising: rand(hires_fix_min_denoising..hires_fix_max_denoising).truncate(2)
     )
