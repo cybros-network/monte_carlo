@@ -182,7 +182,7 @@ router.post("/submit", async (ctx) => {
 
   console.info(`Sending offchainComputingPool.createJob(poolId, policyId, uniqueTrackId, implSpecVersion, input, softExpiresIn)`);
   const txPromise = api.tx.offchainComputingPool.createJob(
-    jobPoolId, jobPolicyId, uniqueTrackId, jobSpecVersion, JSON.stringify(input), null
+    jobPoolId, jobPolicyId, uniqueTrackId, jobSpecVersion, input, null
   );
 
   const callHash = txPromise.toHex();
