@@ -29,9 +29,6 @@ class SubmitPromptTaskJob < ApplicationJob
       expires_in: 3.days.to_i,
       secure: Settings.task_forwarder.s3_use_ssl
     )
-    parsed = URI.parse(image_upload_url)
-    parsed.fragment = parsed.query = nil
-    image_download_url = parsed.to_s
 
     proof_upload_url = signer.presigned_url(
       :put_object,
@@ -40,10 +37,6 @@ class SubmitPromptTaskJob < ApplicationJob
       expires_in: 3.days.to_i,
       secure: Settings.task_forwarder.s3_use_ssl
     )
-
-    parsed = URI.parse(proof_upload_url)
-    parsed.fragment = parsed.query = nil
-    proof_download_url = parsed.to_s
 
     data = {
       image_upload_url: image_upload_url,
@@ -93,8 +86,16 @@ class SubmitPromptTaskJob < ApplicationJob
 
     Rails.logger.info response[:body]
 
-    task.generated_image_url = image_download_url
-    task.generated_proof_url = proof_download_url
+    # parsed = URI.parse(image_upload_url)
+    # parsed.fragment = parsed.query = nil
+    # image_download_url = parsed.to_s
+    # task.generated_image_url = image_download_url
+
+    # parsed = URI.parse(proof_upload_url)
+    # parsed.fragment = parsed.query = nil
+    # proof_download_url = parsed.to_s
+    # task.generated_proof_url = proof_download_url
+
     task.status = :submitted
     task.submitted_at = Time.zone.now
     task.errored_at = nil

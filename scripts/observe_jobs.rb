@@ -68,6 +68,10 @@ def run
       next
     end
 
+    if record.job_id < ENV.fetch("JOB_ID_STARTED_AT").to_i
+      next
+    end
+
     record.events.reverse_each do |event|
       # pp event
       case event.kind
