@@ -17,6 +17,10 @@ class User < ApplicationRecord
             presence: true,
             if: :name_required?
 
+  validates :email,
+            uniqueness: true,
+            allow_blank: true
+
   def display_name
     name.present? ? name : email
   end
