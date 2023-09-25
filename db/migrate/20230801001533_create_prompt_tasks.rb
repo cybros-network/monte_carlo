@@ -24,7 +24,7 @@ class CreatePromptTasks < ActiveRecord::Migration[7.1]
 
       t.string :status, null: false, index: true
 
-      t.integer :unique_track_id, index: true
+      t.string :unique_track_id, index: true
       t.string :transaction_id
 
       t.string :result

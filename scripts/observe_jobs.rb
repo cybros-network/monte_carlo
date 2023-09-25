@@ -89,7 +89,7 @@ def run
     result = Client.query(
       FindJobQuery,
       variables: {
-        pid: ENV.fetch("JOB_POOL_ID").to_i, uid: task.unique_track_id.to_s
+        pid: ENV.fetch("JOB_POOL_ID").to_i, uid: task.unique_track_id
       },
       context: {}
     )

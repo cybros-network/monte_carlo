@@ -156,7 +156,7 @@ class PromptTask < ApplicationRecord
   def submit!
     return false unless pending?
 
-    self.unique_track_id = id + Settings.unique_track_id_base.to_i
+    self.unique_track_id = "0x#{SecureRandom.hex(16)}"
     self.status = :submitting
     self.submitting_at = Time.zone.now
     save!

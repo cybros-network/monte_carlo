@@ -106,7 +106,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_09_08_132308) do
     t.integer "hires_fix_steps"
     t.float "hires_fix_denoising"
     t.string "status", null: false
-    t.integer "unique_track_id"
+    t.string "unique_track_id"
     t.string "transaction_id"
     t.string "result"
     t.text "raw_output"
