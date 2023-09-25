@@ -47,7 +47,7 @@ MonitorJobPoolQuery = Client.parse <<-GRAPHQL
 GRAPHQL
 
 FindJobQuery = Client.parse <<-GRAPHQL
-  query($pid: Int, $uid: Int) {
+  query($pid: Int, $uid: String) {
     jobs(where: {poolId_eq: $pid, uniqueTrackId_eq: $uid}, orderBy: jobId_DESC) {
       jobId
       uniqueTrackId
