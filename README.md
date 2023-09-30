@@ -1,6 +1,11 @@
 Monte-Carlo.ai
 ====
 
+Monte-Carlo.ai is a Stable Diffusion AIGC service based on a fully decentralized computing powers network.
+
+- Demo site (may offline in the future): https://demo.monte-carlo.ai
+- Decentralized worker source code: https://github.com/cybros-network/cybros-network/tree/main/protocol_impl/examples/monte_carlo
+
 ## Requirements
 
 - Ruby 3.2
