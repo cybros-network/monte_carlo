@@ -19,7 +19,8 @@ class PromptTask < ApplicationRecord
     success: "success",
     fail: "fail",
     error: "error",
-    panic: "panic"
+    panic: "panic",
+    unexpected: "unexpected"
   }
 
   validates :prompt,

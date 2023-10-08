@@ -112,38 +112,39 @@ def run
         task.processing_at = Time.parse(event.block_time)
       when "Success"
         task.status = :processed
-        task.processing_at = Time.parse(event.block_time)
+        task.processed_at = Time.parse(event.block_time)
 
-        parsed_output = JSON.parse(record.output)
-        parsed_data = parsed_output.fetch("data")
-        task.result = :success
-        task.raw_output = record.output
-        task.generated_image_url = parsed_data.fetch("imageUrl")
-        task.generated_proof_url = parsed_data.fetch("proofUrl")
+        if record.output.present?
+          parsed_output = JSON.parse(record.output)
+          parsed_data = parsed_output.fetch("data")
+          task.result = :success
+          task.raw_output = record.output
+          task.generated_image_url = parsed_data.fetch("imageUrl")
+          task.generated_proof_url = parsed_data.fetch("proofUrl")
+        else
+          task.result = :unexpected
+        end
       when "Fail"
         task.status = :processed
-        task.processing_at = Time.parse(event.block_time)
+        task.processed_at = Time.parse(event.block_time)
 
         task.result = :fail
         task.raw_output = record.output
       when "Error"
         task.status = :processed
-        task.processing_at = Time.parse(event.block_time)
+        task.processed_at = Time.parse(event.block_time)
 
         task.result = :error
         task.raw_output = record.output
       when "Panic"
         task.status = :processed
-        task.processing_at = Time.parse(event.block_time)
+        task.processed_at = Time.parse(event.block_time)
 
         task.result = :panic
         task.raw_output = record.output
       when "Discarded"
-        task.status = :processed
-        task.processing_at = Time.parse(event.block_time)
-
         task.status = :discarded
-        task.processing_at = Time.parse(event.block_time)
+        task.processed_at = Time.parse(event.block_time)
       else
         # OptOut Created, Assigned, Destroyed
         # raise "Unknown kind #{event.kind} - Job##{record.job_id}"
