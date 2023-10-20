@@ -5,7 +5,7 @@ source "https://rubygems.org"
 ruby ">= 3.2.0"
 
 # Use main development branch of Rails
-gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "~> 7.1"
 gem "rails-i18n"
 
 # Reduces boot times through caching; required in config/boot.rb
